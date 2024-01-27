@@ -18,26 +18,33 @@
     </div>
 
     <script>
-        const courseList = document.getElementById('courseList')
 
-        const courses = [
-            { name: 'Introduction to Computer Science', code: 'CS101' },
-            { name: 'Advanced Mathematics', code: 'MATH300' },
-            // ... more courses
-        ];
 
-        // Function to render courses
-        function renderCourses() {
-            courses.forEach(course => {
-                const courseElement = document.createElement('div');
-                courseElement.className = 'course-item';
-                courseElement.innerHTML = `<strong>${course.code}</strong>: ${course.name}`;
-                courseList.appendChild(courseElement);
-            });
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+    fetch('courses.json')
+    .then(response => response.json())
+    .then(data => renderCourses(data.allCourses));
+});
 
-        // Call the function to render courses
-        renderCourses();
+function renderCourses(allCourses) {
+    const courseList = document.getElementById('courseList');
+
+    const sortedCourses = Object.entries(allCourses).sort((a, b) => {
+        const courseCodeA = a[0];
+        const courseCodeB = b[0];
+        return courseCodeA.localeCompare(courseCodeB);
+    });
+
+
+    sortedCourses.forEach(([courseCode, course]) => {
+        const courseElement = document.createElement('div');
+        courseElement.className = 'course-item';
+        courseElement.innerHTML = `
+            <strong>${courseCode}</strong>: ${course.courseName}`;
+        courseList.appendChild(courseElement);
+    });
+}
+        // renderCourses();
     </script>
 
 </body>
