@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Map</title>
+    <link href=styles.css rel=stylesheet />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            }
+
+        .intro{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <header></header>
+    <div id="introDiv" class="intro">
+        <img src="/uh_red.png" alt="logo" style="width:150px; margin: 24px;"/>
+        <p style="font-size: 24px;"><button id="studentBtn" type="button" class="btn btn-primary">Student Academic Map</button> <button id="adminBtn" type="button" class="btn btn-primary">Admin Portal</button></p>
+    </div>
+
+    <script>
+        document.getElementById('studentBtn').addEventListener('click', function(){
+            window.location.href = 'academicmap.html'
+        })
+        document.getElementById('adminBtn').addEventListener('click', function(){
+            window.location.href = 'administration.html'
+        })
+    </script>
+</body>
+</html>

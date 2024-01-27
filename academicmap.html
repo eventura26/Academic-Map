@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Academic Map - Student</title>
+        <link href="styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <style>
+        .academicMapHead {
+            margin: 10px auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .academicMapHead p {
+            margin-bottom: 15px; /* adds margin below the paragraph */
+        }
+    </style>
+
+    <body>
+        <div class="academicMapHead">
+            <p>Please select a degree plan from the dropdown menu</p>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Degree Plans
+                </button>
+                <!-- aiming for this to be dynamic  -->
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" onclick="showPlan('Computer Science')" href="#">Computer Science</a>
+                    <a class="dropdown-item" onclick="showPlan('Digital Media') " href="#">Digital Media</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="planDetails">
+            <!-- plan details will dynamically be displayed here -->
+        </div>
+
+        <script>
+            function showPlan(planName) {
+                let planDetails = document.getElementById("planDetails");
+
+                // below will change too as it will be dynamic as well
+                if (planName === "Computer Science") {
+                    planDetails.innerHTML = `
+                    <h2>COLLEGE OF NATURAL SCIENCES & MATHEMATICS</h2>
+                    <h3>Bachelor of Science, Computer Science</h3>
+                    <h4>Four-Year Academic Map</h4>
+                    
+                    <table>
+            <tr>
+                <th class="year" colspan="7">YEAR 1</th>
+            </tr>
+            <tr>
+                <th colspan="3">Semester 1 Fall</th>
+                <th colspan="3">Semester 2 Spring</th>
+                <th rowspan="1">Total</th>
+            </tr>
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+            <tr>
+                <td id="naturalScienceCourseNumber"></td>
+                <td id=naturalScienceCourseName>
+                <select id="courseSelect" onchange="updateCourseDetails(this)">
+                    <option value="">Select Natural Science Course</option>
+                    <option value="BIOL 1234" data-hours="3">Biology 101</option>
+                    <option value="CHEM 2345" data-hours="4">Chemistry 101</option>
+                    <option value="PHYS 3456" data-hours="3">Physics 101</option>
+                </select>
+        </td>
+        <td id="naturalScienceCourseHours"></td>
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+
+            <tr> 
+                <td colspan="2">Semester Hours</td>
+                <td>16</td>
+
+                <td colspan="2">Semester Hours</td>
+                <td>16</td> 
+
+                <td colspan="1" class="total-hours">33</td>
+            </tr>
+        </table> 
+                    `;
+                } else if (planName === "Digital Media") {
+                    planDetails.innerHTML = `
+                    <h2>COLLEGE OF TECHNOLOGY</h2>
+                    <h3>Bachelor of Science, Digital Media</h3>
+                    <h4>Four-Year Academic Map</h4>
+                    
+                    <table>
+            <tr>
+                <th class="year" colspan="7">YEAR 1</th>
+            </tr>
+            <tr>
+                <th colspan="3">Semester 1 Fall</th>
+                <th colspan="3">Semester 2 Spring</th>
+                <th rowspan="1">Total</th>
+            </tr>
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+
+            <tr> 
+                <td colspan="2">Semester Hours</td>
+                <td>16</td>
+
+                <td colspan="2">Semester Hours</td>
+                <td>16</td> 
+
+                <td colspan="1" class="total-hours">33</td>
+            </tr>
+        </table> 
+
+        <table>
+            <tr>
+                <th class="year" colspan="7">YEAR 2</th>
+            </tr>
+            <tr>
+                <th colspan="3">Semester 1 Fall</th>
+                <th colspan="3">Semester 2 Spring</th>
+                <th rowspan="1">Total</th>
+            </tr>
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+            <tr>
+                <td>COSC 1336</td>
+                <td>Computer Science Programming</td>
+                <td>3</td> 
+
+                <td>COSC 1437</td>
+                <td>Introduction to Programming</td>
+                <td>4</td>
+                <td></td>
+            </tr> 
+
+            <tr> 
+                <td colspan="2">Semester Hours</td>
+                <td>16</td>
+
+                <td colspan="2">Semester Hours</td>
+                <td>16</td> 
+
+                <td colspan="1" class="total-hours">33</td>
+            </tr>
+        </table> 
+                    `;
+                }
+                localStorage.setItem("selectedPlan", planName);
+            }
+
+            function updateCourseDetails(selectElement) {
+                let courseNumberTd = document.getElementById("naturalScienceCourseNumber");
+                let courseNameTd = document.getElementById("naturalScienceCourseName");
+                let courseHoursTd = document.getElementById("naturalScienceCourseHours");
+                let selectedOption = selectElement.options[selectElement.selectedIndex];
+
+                if (selectElement.value) {
+                    courseNumberTd.textContent = selectElement.value;
+                    courseNameTd.textContent = selectedOption.text;
+                    courseHoursTd.textContent = selectedOption.getAttribute("data-hours");
+
+                    let courseData = {
+                        number: selectElement.value,
+                        name: selectedOption.text,
+                        hours: selectedOption.getAttribute("data-hours"),
+                    };
+                    localStorage.setItem("selectedCourse", JSON.stringify(courseData));
+
+                    console.log("Course data saved to localStorage:", courseData);
+                } else {
+                    // Clear the text content if no course is selected
+                    courseNumberTd.textContent = "";
+                    courseNameTd.textContent = "";
+                    courseHoursTd.textContent = "";
+                }
+            }
+
+            // window.onload = function() {
+            //     // Load saved course details
+            //     let savedCourse = JSON.parse(localStorage.getItem('selectedCourse'));
+            //     console.log('Loaded course data from localStorage:', savedCourse);
+
+            //     if (savedCourse && savedCourse.number) {
+            //         let selectElement = document.getElementById('courseSelect');
+            //         let courseNumberTd = document.getElementById('naturalScienceCourseNumber');
+            //         let courseNameTd = document.getElementById('naturalScienceCourseName');
+            //         let courseHoursTd = document.getElementById('naturalScienceCourseHours');
+
+            //         if (selectElement && courseNumberTd && courseNameTd && courseHoursTd) {
+            //             selectElement.value = savedCourse.number;
+            //             courseNumberTd.textContent = savedCourse.number;
+            //             courseNameTd.textContent = savedCourse.name;
+            //             courseHoursTd.textContent = savedCourse.hours;
+
+            //             // Manually trigger the change event to update the table
+            //             updateCourseDetails(selectElement);
+            //         }
+            //     }
+
+            //     // Load saved plan
+            //     let savedPlan = localStorage.getItem('selectedPlan');
+            //     if (savedPlan) {
+            //         showPlan(savedPlan);
+            //     }
+            // };
+        </script>
+    </body>
+</html>

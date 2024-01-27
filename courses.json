@@ -1,0 +1,78 @@
+{
+    "commonCourses": {
+      "scienceCourses": [
+        {
+          "courseCode": "BIOL 101",
+          "courseName": "Introductory Biology",
+          "creditHours": 3
+        },
+        {
+          "courseCode": "CHEM 101",
+          "courseName": "General Chemistry",
+          "creditHours": 4
+        },
+        {
+          "courseCode": "PHYS 101",
+          "courseName": "Physics for Scientists",
+          "creditHours": 3
+        }
+      ],
+      "minorElectives": [
+        {
+          "courseCode": "MINOR 101",
+          "courseName": "Minor Elective 1",
+          "creditHours": 3
+        },
+        {
+          "courseCode": "MINOR 102",
+          "courseName": "Minor Elective 2",
+          "creditHours": 3
+        }
+      ]
+    },
+    "degreePlans": [
+      {
+        "name": "Computer Science",
+        "college": "College of Natural Sciences & Mathematics",
+        "degreeType": "Bachelor of Science",
+        "academicMap": [
+          {
+            "year": 1,
+            "semesters": [
+              {
+                "semesterName": "Semester 1 Fall",
+                "courses": [
+                  {
+                    "courseCode": "COSC 101",
+                    "courseName": "Introduction to Computer Science",
+                    "creditHours": 3,
+                    "hasDropdown": false
+                  },
+                  {
+                    "courseCode": "SCIENCE_ELECTIVE",
+                    "courseName": "Science Elective",
+                    "creditHours": 3,
+                    "hasDropdown": true,
+                    "dropdownOptions": "scienceCourses"
+                  }
+                ]
+              },
+              {
+                "semesterName": "Semester 2 Spring",
+                "courses": [
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Digital Media",
+        "college": "College of Technology",
+        "degreeType": "Bachelor of Science",
+        "academicMap": [
+        ]
+      }
+    ]
+  }
+  

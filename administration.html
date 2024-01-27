@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Academic Map - Administration</title>
+        <link href=styles.css rel=stylesheet />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <style>
+
+        </style>
+    </head>
+<body>
+    <h2>Admin Portal</h2>    
+    <div id="courseList">
+        <h2>Course List</h2>
+
+    </div>
+
+    <script>
+        const courseList = document.getElementById('courseList')
+
+        const courses = [
+            { name: 'Introduction to Computer Science', code: 'CS101' },
+            { name: 'Advanced Mathematics', code: 'MATH300' },
+            // ... more courses
+        ];
+
+        // Function to render courses
+        function renderCourses() {
+            courses.forEach(course => {
+                const courseElement = document.createElement('div');
+                courseElement.className = 'course-item';
+                courseElement.innerHTML = `<strong>${course.code}</strong>: ${course.name}`;
+                courseList.appendChild(courseElement);
+            });
+        }
+
+        // Call the function to render courses
+        renderCourses();
+    </script>
+
+</body>
+</html>

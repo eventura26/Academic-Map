@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+*{
+    font-family: 'Inter', sans-serif;
+}
+
+html, body {
+    /* height: 100%; */
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    }
+
+.intro{
+    text-align: center;
+}
+
+/* table styling */
+
+table {
+    width: 100%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    text-align: left;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    border:1px solid black;
+}
+
+td, th {
+    padding: 8px;
+    /* border:1px solid black; */
+    /* border:none; */
+}
+
+.year{
+    text-align: center;
+    background-color: rgb(99, 91, 91);
+    color: white;
+    font-size: 24px;
+    width: 30px;
+}
+
+th {
+    background-color: #d4d3d3;
+}
+
+td.total-hours {
+    text-align: center;
+    font-weight: bold;
+}
+
+.title-row, .total-row{
+    border:1px solid black;
+}
+
+/* zebra striping for rows */
+tr:nth-child(odd) {
+    background-color: #ebe6e6;
+}
+
+tr:nth-child(even) {
+    background-color: #ffffff;
+}
