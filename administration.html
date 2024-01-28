@@ -6,25 +6,73 @@
         <title>Academic Map - Administration</title>
         <link href=styles.css rel=stylesheet />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <style>
-            .course-list-container{
-                width:200px;
+            .container{
+                text-align: center;
+                margin-top:24px
             }
-            .course-item{
-                margin:14px;
+            .control-btns{
+                margin-top: 20px;;
             }
+            .course-list-container {
+    display: none; /* Initially hidden */
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;;
+
+}
+
+.course-item {
+    margin: 14px;
+    flex-basis: calc(33% - 28px); /* For 3 columns, adjust for margins */
+    box-sizing: border-box;
+}
+
+.course-selection:hover{
+    color:blue    
+}
             
         </style>
     </head>
 <body>
-    <h2>Admin Portal</h2>    
-    <div id="courseList" class="course-list-container" style="border:1px solid black">
-        <h2 style="text-align: center;">Course List</h2>
-    </div>
-    <div id="courseModal" class="modal" style="display: none">
+    <div class="container">
+        <h2>Admin Portal</h2>    
+        
+        <div class="control-btns">
+            <button type="button" class="btn btn-info" onclick="toggleCourseList()">View All Courses</button>
+            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                View/Edit by Degree Plan
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="showPlan('Computer Science')" href="#">Computer Science</a>
+                <a class="dropdown-item" onclick="showPlan('Digital Media') " href="#">Digital Media</a>
+            </div>
+            <button type="button" class="btn btn-success">+ Add a Course</button>
+            <button type="button" class="btn btn-secondary" onclick="window.open('/academicmap.html', '_blank')">Student View</button>
+        </div>
+ 
 
-        <div id="coursePopupContent"></div>
-    </div>
+        <div id="courseList" class="course-list-container">
+            <!-- <h2 style="text-align: center;">Course List</h2> -->
+        </div>
+
+        <!-- <div id="courseModal" class="course-modal" style="display: none">
+            <div id="courseModalContent" class="modal-content">
+
+            </div>
+        </div> -->
+
+        <div id="courseModal" style="display: none">
+            <div id="courseModalContent">
+
+            </div>
+      
+        </div>
+
+</div>
 
     <script>
 
@@ -45,17 +93,28 @@
             });
 
             sortedCourses.forEach(([courseCode, course]) => {
-                const courseElement = document.createElement('div');
-                courseElement.className = 'course-item';
-                courseElement.innerHTML = `<img src="/rubbish-bin.svg" alt="trash icon" style="width:24px; cursor:pointer;">
-                    <strong>${courseCode}</strong>: ${course.courseName}`;
-                courseElement.querySelector('img').addEventListener('click', () => deleteCourse(courseCode, courseElement));
-                courseElement.addEventListener('click', () => showModal(courseCode, course));
+    const courseElement = document.createElement('div');
+    courseElement.className = 'course-item';
+    courseElement.innerHTML = `
+        <img src="/rubbish-bin.svg" alt="trash icon" style="width:24px; cursor:pointer;">
+        <span class="course-text clickable"><strong>${courseCode}</strong>: ${course.courseName}</span>`;
+    
+    // Event listener for the delete icon
+    courseElement.querySelector('img').addEventListener('click', (event) => {
+        event.stopPropagation();
+        deleteCourse(courseCode, courseElement);
+    });
 
-                courseElement.setAttribute('data-course-code', courseCode);
+    // Event listener for the text part
+    courseElement.querySelector('.course-text').addEventListener('click', () => {
+        showModal(courseCode, course);
+    });
 
-                courseList.appendChild(courseElement);
-            });
+    courseElement.setAttribute('data-course-code', courseCode);
+
+    courseList.appendChild(courseElement);
+});
+
 
             const trashIcon = courseElement.querySelector('img');
     trashIcon.addEventListener('click', (event) => {
@@ -64,6 +123,14 @@
     });
         }
 
+        function toggleCourseList() {
+    let courseList = document.getElementById('courseList');
+    if (courseList.style.display === 'none' || courseList.style.display === '') {
+        courseList.style.display = 'flex';
+    } else {
+        courseList.style.display = 'none';
+    }
+}
 
         function deleteCourse(courseCode, courseElement = null) {
     // Show confirmation dialog
@@ -89,20 +156,19 @@
 
     
 function showModal(courseCode, course) {
-    // Extract necessary data from the course object
     console.log(course)
     console.log(courseCode)
 
     const {courseName, creditHours, Description } = course;
 
-    const popup = document.getElementById("courseModal");
-    popup.classList.add("course-popup");
-    const popupContent = document.getElementById("coursePopupContent");
-    popupContent.innerHTML = "";
-    popupContent.classList.add("popup-content");
+    const modal = document.getElementById("courseModal");
+    modal.classList.add("course-modal");
+    const modalContent = document.getElementById("courseModalContent");
+    modalContent.innerHTML = "";
+    modalContent.classList.add("modal-content");
 
     // Admin page: show form for editing
-    popupContent.innerHTML = `
+    modalContent.innerHTML = `
         <form id="editCourseForm" class='edit-form'>
             <h3>Edit Course</h3>
             <label for="courseCode">Course Code:</label>
@@ -113,10 +179,10 @@ function showModal(courseCode, course) {
             <input type="number" id="courseHours" name="courseHours" value="${creditHours}">
             <label for="courseDescription">Description:</label>
             <textarea id="courseDescription" name="courseDescription" style="height: 100px;">${Description}</textarea>
-            <div>
-                <button class="save-btn" type="submit">Save Changes</button>
-                <button class="close-btn" style="background-color: red; color: #fff;" onclick="deleteCourse('${courseCode}')">Delete Course</button>
-                <button class="close-btn" onclick="closeModal()">Close</button>
+            <div style="margin-top:14px">
+                <button type="button" class="btn btn-success">Save Changes</button>
+                <button type="button" class="btn btn-danger" onclick="deleteCourse('${courseCode}')">Delete Course</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
             </div>
         </form>
     `;
@@ -137,7 +203,7 @@ function showModal(courseCode, course) {
 
         closeModal();
     });
-    popup.style.display = "block";
+    modal.style.display = "block";
 }
 
 function closeModal() {

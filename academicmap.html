@@ -22,8 +22,10 @@
         }
 
         .academicMapHead p {
-            margin-bottom: 15px; /* adds margin below the paragraph */
+            margin-bottom: 15px;
         }
+
+
     </style>
 
     <body>
@@ -48,6 +50,14 @@
             <!-- plan details will dynamically be displayed here -->
         </div>
         
+        <div id="courseModal" class="course-modal" style="display: none;">
+            <div id="courseModalContent">
+                <!-- Content will be added dynamically -->
+            </div>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+
+
         <script>
             // stores degree plan data
             let degreeData = {};
@@ -64,6 +74,7 @@ function showPlan(planName) {
     localStorage.setItem("currentDegreePlan", planName);
     let planDetails = document.getElementById("planDetails");
     let selectedPlan = degreeData.degreePlans.find((plan) => plan.name === planName);
+    let totalFourYearHours = 0; 
 
     if (!selectedPlan) {
         planDetails.innerHTML = "<p>Plan not found.</p>";
@@ -72,7 +83,10 @@ function showPlan(planName) {
 
     let planDetailsHTML = `<h2>${selectedPlan.college}</h2>
                     <h3>${selectedPlan.degreeType}, ${planName}</h3>
-                    <h4>Four-Year Academic Map</h4>`;
+                    <h4>Four-Year Academic Map</h4>
+                    <p>Click a course code to view more details</p>
+                    
+                    `;
 
     selectedPlan.academicMap.forEach((year, j) => {
         planDetailsHTML += `<table class="table table-bordered">
@@ -132,21 +146,35 @@ function showPlan(planName) {
                 <td>Total: ${semester1TotalHours + semester2TotalHours}</td>
             </tr>
         `;
+    
+        totalFourYearHours += semester1TotalHours + semester2TotalHours;
+
         planDetailsHTML += `</tbody></table>`;
     });
 
+    planDetailsHTML += `
+        <table class="table table-bordered">
+            <tfoot>
+                <tr>
+                    <td colspan="6" class="text-right">Total 4-Year Hours</td>
+                    <td>${totalFourYearHours}</td>
+                </tr>
+            </tfoot>
+        </table>`;
     planDetails.innerHTML = planDetailsHTML;
     loadStoredValues();
+
 }
 
 function generateCourseCell(course, uniqueSelectId) {
     if (typeof course === "string") {
         // For static courses (non-dropdown)
         const courseDetails = degreeData.allCourses[course];
-        return `<td colspan="1">${course}</td><td colspan="1">${courseDetails.courseName}</td><td colspan="1">${courseDetails.creditHours}</td>`;
+        // Return the cell HTML with an onclick event that calls showModal passing the course code
+        return `<td colspan="1" class="clickable" onclick="showModal('${course}')">${course}</td><td colspan="1">${courseDetails.courseName}</td><td colspan="1">${courseDetails.creditHours}</td>`;
     } else {
         // For courses that require a dropdown selection
-        let cellHTML = `<td id="${uniqueSelectId}CourseNumber">${course.courseCode}</td>`; // Display the default course code
+        let cellHTML = `<td id="${uniqueSelectId}CourseNumber" onclick="showModal('${course.courseCode}')">${course.courseCode}</td>`; // Include the onclick event here
         cellHTML += `<td colspan="1"><select id="${uniqueSelectId}" onchange="updateCourseDetails('${uniqueSelectId}', this.value); storeCellValue(this)">`;
         cellHTML += `<option value="">Select a course</option>`;
 
@@ -163,6 +191,7 @@ function generateCourseCell(course, uniqueSelectId) {
 
 
 
+
 function updateCourseDetails(uniqueSelectId, selectedCourseCode) {
     const courseNumberCell = document.getElementById(`${uniqueSelectId}CourseNumber`);
     const creditHoursCell = document.getElementById(`${uniqueSelectId}CreditHours`);
@@ -171,14 +200,25 @@ function updateCourseDetails(uniqueSelectId, selectedCourseCode) {
         const courseDetails = degreeData.allCourses[selectedCourseCode];
         courseNumberCell.innerText = selectedCourseCode; // Update course number
         creditHoursCell.innerText = courseDetails.creditHours; // Update credit hours
+
+        // Set the onclick attribute to call showModal with the new course code
+        courseNumberCell.setAttribute('onclick', `showModal('${selectedCourseCode}')`);
+        courseNumberCell.classList.add('clickable');
     } else {
         // Reset if no course is selected
-        courseNumberCell.innerText = "";
-        creditHoursCell.innerText = "";
+        courseNumberCell.innerText = '';
+        creditHoursCell.innerText = '';
+        
+        // Remove the onclick attribute if no course is selected
+        courseNumberCell.removeAttribute('onclick');
+        courseNumberCell.classList.remove('clickable');
     }
+
+    // Continue with the rest of your existing logic...
     const selectElement = document.getElementById(uniqueSelectId);
     storeCellValue(selectElement);
 }
+
 
 // event driven programming OR passing events in js
 let selectionDict = {};
@@ -253,6 +293,32 @@ function getCourseHours(course) {
 document.getElementById("adminBtn").addEventListener("click", function () {
     window.location.href = "administration.html";
 });
+
+function showModal(courseCode) {
+    const courseDetails = degreeData.allCourses[courseCode]; 
+    if (!courseDetails) {
+        console.error('Course details not found for code:', courseCode);
+        return;
+    }
+
+    const modal = document.getElementById("courseModal");
+    const modalContent = document.getElementById("courseModalContent");
+
+    // Add new content
+    modalContent.innerHTML = `
+        <h3>${courseCode} - ${courseDetails.courseName}</h3>
+        <p>Credit Hours: ${courseDetails.creditHours}</p>
+        <h3>Description:</h3>
+        <p>${courseDetails.Description}</p>`;
+
+    // Show modal
+    modal.style.display = "block";
+}
+
+
+function closeModal() {
+    document.getElementById("courseModal").style.display = "none";
+}
 
         </script>
     </body>

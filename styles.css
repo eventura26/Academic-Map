@@ -60,12 +60,64 @@ td.total-hours {
     border:1px solid black;
 }
 
-/* Zebra striping for rows within tbody only, not applied to header rows */
 table tbody tr:nth-of-type(odd) {
     background-color: #ebe6e6; /* light color for odd rows */
 }
 
 table tbody tr:nth-of-type(even) {
     background-color: #ffffff; /* white color for even rows */
+}
+
+
+.edit-form {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px; 
+    background-color: rgb(240, 217, 217);
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 2px;
+    z-index: 1000;
+    display: none; /* hide by default */
+}
+
+.modal-content h3 {
+    color: #241b16; 
+    margin-bottom: 10px;
+}
+
+.modal-content label, p, h3{
+    display: flex;
+    justify-content: start;
+}
+.modal-content  {
+    color: #333; 
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.close-btn{
+    width:60px;
+    background-color: rgb(232, 245, 238);
+}
+.close-btn:hover{
+ cursor:pointer;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.clickable:hover {
+    color:rgb(24, 24, 240);
+    background-color: #f2f2f2; /* or any color you prefer */
 }
 
