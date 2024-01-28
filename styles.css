@@ -21,7 +21,7 @@ html, body {
 
 table {
     width: 100%;
-    max-width: 1200px;
+    /* max-width: 1200px; */
     border-collapse: collapse;
     text-align: left;
     margin: 0 auto;
@@ -29,8 +29,12 @@ table {
     border:1px solid black;
 }
 
+tbody{
+    width:1200px;
+}
+
 td, th {
-    padding: 8px;
+    /* padding: 8px; */
     /* border:1px solid black; */
     /* border:none; */
 }

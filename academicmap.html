@@ -80,7 +80,7 @@ function showPlan(planName) {
                         <tr>
                             <th colspan="3">Semester 1 Fall</th>
                             <th colspan="3">Semester 2 Spring</th>
-                            <th>Total</th>
+                            <th colspan="1">Total</th>
                         </tr>`;
 
         let semesters = year.semesters;
@@ -93,7 +93,7 @@ function showPlan(planName) {
             let uniqueSelectIdSemester2 = "year" + j + "semester2SelectID" + i;
 
             planDetailsHTML += "<tr>";
-
+                
             // Semester 1 Courses
             if (semesters[0].courses[i]) {
                 planDetailsHTML += generateCourseCell(semesters[0].courses[i], uniqueSelectIdSemester1);
@@ -110,19 +110,24 @@ function showPlan(planName) {
                 planDetailsHTML += "<td colspan='3'></td>";
             }
 
-            if (i === 0) {
-                planDetailsHTML += `<td rowspan='${maxCourses}'>${semester1TotalHours + semester2TotalHours}</td>`;
-            }
-
-            planDetailsHTML += "</tr>";
+            // if (i === maxCourses - 1) {
+            //    planDetailsHTML += `<td rowspan='${maxCourses}'>${semester1TotalHours + semester2TotalHours}</td>`;
+            // }
         }
-
+        planDetailsHTML += `
+            <tr>
+                <td colspan="3">Semester 1 Total Hours: ${semester1TotalHours}</td>
+                <td colspan="3">Semester 2 Total Hours: ${semester2TotalHours}</td>
+                <td>Total: ${semester1TotalHours + semester2TotalHours}</td>
+            </tr>
+        `;
         planDetailsHTML += `</table>`;
     });
 
     planDetails.innerHTML = planDetailsHTML;
     loadStoredValues();
 }
+
 
 function generateCourseCell(course, uniqueSelectId) {
     if (typeof course === "string") {
