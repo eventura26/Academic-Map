@@ -60,12 +60,12 @@ td.total-hours {
     border:1px solid black;
 }
 
-/* zebra striping for rows */
-tr:nth-child(odd) {
-    background-color: #ebe6e6;
+/* Zebra striping for rows within tbody only, not applied to header rows */
+table tbody tr:nth-of-type(odd) {
+    background-color: #ebe6e6; /* light color for odd rows */
 }
 
-tr:nth-child(even) {
-    background-color: #ffffff;
+table tbody tr:nth-of-type(even) {
+    background-color: #ffffff; /* white color for even rows */
 }
 

@@ -76,12 +76,17 @@ function showPlan(planName) {
 
     selectedPlan.academicMap.forEach((year, j) => {
         planDetailsHTML += `<table class="table table-bordered">
+                <thead>
                         <tr><th class="year" colspan="7">YEAR ${year.year}</th></tr>
+        
                         <tr>
                             <th colspan="3">Semester 1 Fall</th>
                             <th colspan="3">Semester 2 Spring</th>
                             <th colspan="1">Total</th>
-                        </tr>`;
+                        </tr>
+                        </thead>
+                        <tbody>`;
+                        ;
 
         let semesters = year.semesters;
         let maxCourses = Math.max(semesters[0].courses.length, semesters[1].courses.length);
@@ -89,61 +94,92 @@ function showPlan(planName) {
         let semester2TotalHours = 0;
 
         for (let i = 0; i < maxCourses; i++) {
-            let uniqueSelectIdSemester1 = "year" + j + "semester1SelectID" + i;
-            let uniqueSelectIdSemester2 = "year" + j + "semester2SelectID" + i;
+    let uniqueSelectIdSemester1 = "year" + j + "semester1SelectID" + i;
+    let uniqueSelectIdSemester2 = "year" + j + "semester2SelectID" + i;
 
-            planDetailsHTML += "<tr>";
-                
-            // Semester 1 Courses
-            if (semesters[0].courses[i]) {
-                planDetailsHTML += generateCourseCell(semesters[0].courses[i], uniqueSelectIdSemester1);
-                semester1TotalHours += getCourseHours(semesters[0].courses[i]);
-            } else {
-                planDetailsHTML += "<td colspan='3'></td>";
-            }
+    planDetailsHTML += "<tr>";
 
-            // Semester 2 Courses
-            if (semesters[1].courses[i]) {
-                planDetailsHTML += generateCourseCell(semesters[1].courses[i], uniqueSelectIdSemester2);
-                semester2TotalHours += getCourseHours(semesters[1].courses[i]);
-            } else {
-                planDetailsHTML += "<td colspan='3'></td>";
-            }
+    // Semester 1 Courses
+    if (semesters[0].courses[i]) {
+        planDetailsHTML += generateCourseCell(semesters[0].courses[i], uniqueSelectIdSemester1);
+        semester1TotalHours += getCourseHours(semesters[0].courses[i]);
+    } else {
+        planDetailsHTML += "<td colspan='3'></td>";
+    }
 
-            // if (i === maxCourses - 1) {
-            //    planDetailsHTML += `<td rowspan='${maxCourses}'>${semester1TotalHours + semester2TotalHours}</td>`;
-            // }
-        }
+    // Semester 2 Courses
+    if (semesters[1].courses[i]) {
+        planDetailsHTML += generateCourseCell(semesters[1].courses[i], uniqueSelectIdSemester2);
+        semester2TotalHours += getCourseHours(semesters[1].courses[i]);
+    } else {
+        planDetailsHTML += "<td colspan='3'></td>";
+    }
+
+    // Add a blank cell under the "Total" column if it's not the first course row
+    if (i !== 0) {
+        planDetailsHTML += "<td></td>"; // This cell is for the "Total" column
+    }
+
+    planDetailsHTML += "</tr>";
+}
+
         planDetailsHTML += `
             <tr>
-                <td colspan="3">Semester 1 Total Hours: ${semester1TotalHours}</td>
-                <td colspan="3">Semester 2 Total Hours: ${semester2TotalHours}</td>
+                <td colspan="2">Semester 1 Total Hours</td>
+                <td colspan="1">${semester1TotalHours}</td>
+                <td colspan="2">Semester 2 Total Hours</td>
+                <td colspan="1">${semester2TotalHours}</td>
                 <td>Total: ${semester1TotalHours + semester2TotalHours}</td>
             </tr>
         `;
-        planDetailsHTML += `</table>`;
+        planDetailsHTML += `</tbody></table>`;
     });
 
     planDetails.innerHTML = planDetailsHTML;
     loadStoredValues();
 }
 
-
 function generateCourseCell(course, uniqueSelectId) {
     if (typeof course === "string") {
+        // For static courses (non-dropdown)
         const courseDetails = degreeData.allCourses[course];
-        return `<td>${course}</td><td colspan="2">${courseDetails.courseName}</td>`;
+        return `<td colspan="1">${course}</td><td colspan="1">${courseDetails.courseName}</td><td colspan="1">${courseDetails.creditHours}</td>`;
     } else {
-        let cellHTML = `<td>${course.courseCode}</td><td colspan="2"><select id="${uniqueSelectId}" placeholder="Please Select an Option" onchange="storeCellValue(this)">`;
-        cellHTML += `<option>Select a course</option>`;
+        // For courses that require a dropdown selection
+        let cellHTML = `<td id="${uniqueSelectId}CourseNumber">${course.courseCode}</td>`; // Display the default course code
+        cellHTML += `<td colspan="1"><select id="${uniqueSelectId}" onchange="updateCourseDetails('${uniqueSelectId}', this.value); storeCellValue(this)">`;
+        cellHTML += `<option value="">Select a course</option>`;
+
         degreeData.dropdownLists[course.dropdownList].forEach((dropdownCourseCode) => {
             const dropdownCourseDetails = degreeData.allCourses[dropdownCourseCode];
-            cellHTML += `<option value="${dropdownCourseCode}" onChange={} >${dropdownCourseDetails.courseName}</option>`;
+            cellHTML += `<option value="${dropdownCourseCode}">${dropdownCourseDetails.courseName}</option>`;
         });
+
         cellHTML += `</select></td>`;
+        cellHTML += `<td id="${uniqueSelectId}CreditHours"></td>`; // Placeholder for credit hours
         return cellHTML;
     }
 }
+
+
+
+function updateCourseDetails(uniqueSelectId, selectedCourseCode) {
+    const courseNumberCell = document.getElementById(`${uniqueSelectId}CourseNumber`);
+    const creditHoursCell = document.getElementById(`${uniqueSelectId}CreditHours`);
+
+    if (selectedCourseCode) {
+        const courseDetails = degreeData.allCourses[selectedCourseCode];
+        courseNumberCell.innerText = selectedCourseCode; // Update course number
+        creditHoursCell.innerText = courseDetails.creditHours; // Update credit hours
+    } else {
+        // Reset if no course is selected
+        courseNumberCell.innerText = "";
+        creditHoursCell.innerText = "";
+    }
+    const selectElement = document.getElementById(uniqueSelectId);
+    storeCellValue(selectElement);
+}
+
 // event driven programming OR passing events in js
 let selectionDict = {};
 
@@ -189,15 +225,19 @@ function loadStoredValues() {
         // Get the selections specific to the current degree plan
         const selectionDict = allSelections[currentDegreePlan] || {};
 
-        // Update the select elements with the stored values
+        // Update the select elements and corresponding course details with the stored values
         for (const id in selectionDict) {
+            const selectedCourseCode = selectionDict[id];
             const selectElement = document.getElementById(id);
             if (selectElement) {
-                selectElement.value = selectionDict[id];
+                selectElement.value = selectedCourseCode;
+                updateCourseDetails(id, selectedCourseCode); // Update course code and credit hours
             }
         }
     }
 }
+
+
 // Call this function when the page loads
 document.addEventListener("DOMContentLoaded", loadStoredValues);
 
