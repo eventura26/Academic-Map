@@ -1,527 +1,809 @@
 {
-    "allCourses": {
-      "COSC 1336": {
-        "courseName": "Computer Science Programming",
-        "creditHours": 3,
-        "Description": "Introduction to problem solving through computer programming. Students will learn the fundamental principles of computer science, basic hardware and software components of a computer system, computational thinking, basic algorithms, and programming concepts. Students will get hands-on experience in problem solving by designing, writing, testing and debugging programs in a modern programming language."
-      },
-      "ENGL 1301": {
-        "courseName": "First Year Writing I",
-        "creditHours": 3,
-        "Description": "A TSI placement score of at least 340, and an essay score of at least a 4 on the TSI Writing Assessment; or a placement score of less than 340, and an ABE Diagnostic level of at least 4, and an essay score of at least 5 on the TSI Writing Assessment; and a score ranging from 351 to 390 on the TSI Reading Assessment. Students may exempt the TSI by obtaining satisfactory scores on other accepted standardized tests. See http://www.uh.edu/ussc/tsi/ for details."
-      },
-      "HIST 1301": {
-        "courseName": "The United States to 1877",
-        "creditHours": 3,
-        "Description": "The social, economic, and political history of the United States to 1877."
-      },
-      "GOVT 2306": {
-        "courseName": "US & TX Constitutions and Politics",
-        "creditHours": 3,
-        "Description": "Introduction to the constitutions and politics of the United States and Texas, emphasizing constitutional structure, federalism, separation of powers, limited government, public opinion, elections, and civil liberties. (Introductory category)"
-      },
-      "MATH 2413": {
-        "courseName": "Calculus I",
-        "creditHours": 4,
-        "Description": "Calculus of rational functions, limits, derivatives, applications of the derivative, antiderivatives, the definite integral with applications, mean value theorem, fundamental theorem of calculus, and numerical integration."
-      },
-      "COSC 1437": {
-        "courseName": "Introduction to Programming",
-        "creditHours": 4,
-        "Description": "Fundamental concepts of structured programming; procedures and elementary data structures with a focus on problem solving strategies and implementation; computer organization, structured procedural programming, C/C++ programming language, and algorithm design."
-      },
-      "ENGL 1302": {
-        "courseName": "First Year Writing II",
-        "creditHours": 3,
-        "Description": "Detailed study of the principles of rhetoric as applied to analyzing and writing argumentative and persuasive essays; principles and methods of research, culminating in writing a substantial research paper."
-      },
-      "HIST 1302": {
-        "courseName": "The United States Since 1877",
-        "creditHours": 3,
-        "Description": "The social, economic, and political history of the United States since 1877."
-      },
-      "GOVT 2305": {
-        "courseName": "US Gov: Congress, Pres, & Courts",
-        "creditHours": 3,
-        "Description": "Introduction to the institutions of government with an emphasis on the congress, the president, and the federal courts. (Introductory category.)"
-      },
-      "MATH 2414": {
-        "courseName": "Calculus II",
-        "creditHours": 4,
-        "Description": "Calculus of transcendental functions: additional techniques and applications of integration, indeterminate forms, improper integrals, Taylor’s formula, and infinite series."
-      },
-      "COSC 2436": {
-        "courseName": "Programming & Data Structures",
-        "creditHours": 4,
-        "Description": "Introduction to fundamental data structures: arrays, lists, stacks, queues, hash tables, trees; sorting and searching; graph algorithms; design, analysis, and comparison of algorithms. Correctness verification techniques such as assertions and invariants. Review program specification, unit testing, and debugging."
-      },
-      "COSC 2425": {
-        "courseName": "Computer Org & Architecture",
-        "creditHours": 4,
-        "Description": "Low-level computer design, basics of digital design, and hardware/software interface; Principles of pipelining and caching, instruction pipelining, SIMD and multiprocessor systems."
-      },
-      "MATH 3321": {
-        "courseName": "Engineering Math",
-        "creditHours": 3,
-        "Description": "First order ordinary differential equations and initial value problems; higher order differential equations; vector spaces, matrices, determinants, eigenvectors and eigenvalues; applications to systems of first order equations; Laplace transforms."
-      },
-      "COSC 3360": {
-        "courseName": "Operating Systems",
-        "creditHours": 3,
-        "Description": "Operating system; sequential processes, concurrent processes, deadlock, mutual exclusion, semaphores; memory management, processor management, peripheral device management."
-      },
-      "COSC 3336": {
-        "courseName": "Computing Structures",
-        "creditHours": 3,
-        "Description": "Introduce methods of reasoning used in computer science; logical notation and proof methods; induction and recursion; sets, functions, and relations; graphs; the growth of functions; annotated programs and loop invariants."
-      },
-      "BIOL 1306": {
-        "courseName": "Biology for Science Majors I",
-        "creditHours": 3,
-        "Description": "BIOL 1306 is the first semester of a two-part Introduction to Biological Science course and focuses on biochemistry, cell biology and physiology."
-      },
-      "BIOL 1307": {
-        "courseName": "Biology for Science Majors II ",
-        "creditHours": 3,
-        "Description": "BIOL 1307 is the second semester of a two-part Introduction to Biological Science course and focuses on genetics, biotechnology, evolution and ecology"
-      },
-      "PHYS 1301": {
-        "courseName": "College Physics I ",
-        "creditHours": 3,
-        "Description": "First semester of a two part non-calculus-based course covering mechanics of one- and two-dimensional motion, dynamics, energy, momentum, rotational dynamics and kinematics, statics, gravity, oscillations, waves and fluids."
-      },
-      "PHYS 1302": {
-        "courseName": "College Physics II",
-        "creditHours": 3,
-        "Description": "Second semester of a two part non-calculus-based course covering thermodynamics, electricity, magnetism, electromagnetic waves, optics, and modern physics."
-      },
-      "GEOL 1302": {
-        "courseName": "Intro To Global Climate Change",
-        "creditHours": 3,
-        "Description": "Examines how past climate records and models provide a better understanding of possible future climate changes. Greenhouse gases, solar output, Earth’s orbit, and anthropogenic effects."
-      },
-      "GEOL 1303": {
-        "courseName": "Physical Geology",
-        "creditHours": 3,
-        "Description": "Principles of geology; emphasis on surface and internal processes of the earth."
-      },
-      "GEOL 1304": {
-        "courseName": "Historical Geology",
-        "creditHours": 3,
-        "Description": "Geologic history of the earth; introduction to the uses of geological principles to interpret earth history."
-      },
-      "CHEM 1305": {
-        "courseName": "Foundations of Chemistry",
-        "creditHours": 3,
-        "Description": "Concepts and principles of chemistry."
-      },
-      "CHEM 1311": {
-        "courseName": "Fundamentals of Chemistry",
-        "creditHours": 3,
-        "Description": "General principles, fundamental laws, atomic & molecular structure, states of matter, & elementary inorganic, nuclear & organic chemistry."
-      },
-      "CHEM 1312": {
-        "courseName": "Fundamentals of Chemistry 2",
-        "creditHours": 3,
-        "Description": "General principles, fundamental laws, equilibrium, kinetics, electrochemistry, and elementary inorganic, nuclear, and organic chemistry."
-      },
-      "ARCH 2350": {
-        "courseName": "History of the Built Environment I",
-        "creditHours": 3,
-        "Description": "First part of a two-semester chronological history of the global human-impacted environment, with attention to social, cultural, philosophical, technical, and environmental issues."
-      },
-      "ARED 2310": {
-        "courseName": "Introduction to Critical Visual Culture",
-        "creditHours": 3,
-        "Description": "Introduces key concepts, themes, and critical approaches in visual culture to understand images and the contexts in which they operate from a cross-disciplinary perspective. Emphasis is placed on critical investigation of contemporary art, art education, media literacy, and visual/cultural practices, covering subjects pertaining to the production, experience and understanding of visual culture and how these issues affect processes of learning about, making and displaying visual artifacts for developing critical thinking, effective visual communication, and informed practice."
-      },
-      "ARTS 1304": {
-        "courseName": "Art History II (15th Century to the Present)",
-        "creditHours": 3,
-        "Description": "Art and its relationship to society in and for which it was made from the Renaissance to the present."
-      },
-      "CLAS 3345": {
-        "courseName": "Myth&Performance in Greek Trag",
-        "creditHours": 3,
-        "Description": "The reshaping of myths in the tragedies performed in the fifth century BCE and in modern productions of those plays. Critical appraisal of text and performance in the respective cultural contexts."
-      },
-      "AAS 2320": {
-        "courseName": "Intro to African American Study",
-        "creditHours": 3,
-        "Description": "An introductory analysis of the discipline of African American/African Studies, its mission, key theories and major concerns."
-      },
-      "AAS 2330": {
-        "courseName": "Black Liberation Theology",
-        "creditHours": 3,
-        "Description": "This course will examine, compare and contrast the theologies and resulting programmatic actions taken by persons espousing Black Liberation Theology."
-      },
-      "ARAB 3340": {
-        "courseName": "Modern & Rationalism in Islamic Tradition",
-        "creditHours": 3,
-        "Description": "Systematic analysis of classical Islamic philosophical discourse and its contribution to the development of Islamic Modernism and Arab Enlightenment: including the Qur’an, Ghazali, Averroes, Muhammad Abduh, and Nasr Abu Zayd."
-      },
-      "ARTH 1300": {
-        "courseName": "Ways of Seeing: Art and Our Visual World",
-        "creditHours": 3,
-        "Description": "Examination of our visual world and the various ways in which that world has been analyzed and valued. May not be applied to a major or minor in art history or art."
-      },
-      "COOK 1301": {
-        "courseName": "Fundam of Cooking",
-        "creditHours": 3,
-        "Description": "Learn world cooking "
-      },
-      "CARS 1311": {
-        "courseName": "Mechanic Shop",
-        "creditHours": 3,
-        "Description": "Learn basic entry level car maintance from oil changes to changing your own brakes"
-      },
-      "ART 1301": {
-        "courseName": "Fundamentals of Drawing",
-        "creditHours": 3,
-        "Description": "The use of graphic media to explore fundamental visual relationships."
-      },
-      "ART 1302": {
-        "courseName": "History of Art",
-        "creditHours": 3,
-        "Description": "An introduction to monuments of art from the Renaissance to contemporary times"
-      },
-      "ARTH 1301": {
-        "courseName": "Ways of Seeing: Art and Our Visual World",
-        "creditHours": 3,
-        "Description": "Examination of our visual world and the various ways in which that world has been analyzed and valued. May not be applied to a major or minor in art history or art."
-      },
-      "ARTH 1380": {
-        "courseName": "Art & Society: Prehistoric to Gothic",
-        "creditHours": 3,
-        "Description": "Art and its relationships to society in and for which it was made from the ancient world to the Gothic period."
-      },
-      "ARTH 1381": {
-        "courseName": "Art & Society: Renaissance to Modern",
-        "creditHours": 3,
-        "Description": "Art and its relationship to society in and for which it was made from the Renaissance to the present."
-      },
-      "MUSI 2302": {
-        "courseName": "Listening to Jazz",
-        "creditHours": 3,
-        "Description": "Introduction to jazz listening and jazz history through the study of specific works in historical and cultural contexts."
-      },
-      "MUSI 2342": {
-        "courseName": "Music for Children",
-        "creditHours": 3,
-        "Description": "tudy covers the elements of music, and musical materials and teaching concepts appropriate for children in grades K-4."
-      },
-      "THEA 1111": {
-        "courseName": "Production",
-        "creditHours": 3,
-        "Description": "Service on one crew per semester on a rotating basis, developing students' skills in all phases of production. "
-      },
-      "COSC 3337": {
-        "courseName": "Data Science I",
-        "creditHours": 3,
-        "Description": "Data science process, data preprocessing, exploratory data analysis, data visualization, basic statistics, basic machine learning concepts, classification and prediction, similarity assessment, clustering, post-processing and interpreting data analysis results, use of data analysis tools and programming languages and data analysis case studies."
-      },
-      "COSC 3371": {
-        "courseName": "Cybersecurity",
-        "creditHours": 3,
-        "Description": "Introduction to cybersecurity: theoretical foundations of security, cryptographic algorithms and protocols, widely used security protocols (such as SSL), and practical attack and defense techniques, including software vulnerability exploits and firewalls."
-      },
-      "COSC 4315": {
-        "courseName": "Programming Languages and Paradigms",
-        "creditHours": 3,
-        "Description": "Discussion and comparison of basic programming styles and their underlying paradigms, such as imperative programming, functional programming, logic programming and object-oriented programming. Study of languages based on these paradigms."
-      },
-      "COSC 4337": {
-        "courseName": "Data Science II",
-        "creditHours": 3,
-        "Description": "This course offers the opportunity to learn advanced modeling and analysis techniques, and is intended for students who completed the course on Data Science I. A distinctive feature of this course is the opportunity to apply data-science skills on a semester long project based on real-world data. The demand for data scientists is increasing enormously these days, to the point that companies struggle finding candidates with the required skill set. After this course, students will be familiar with the most popular data science and machine learning techniques, ready to apply for a variety of data-science jobs in industry."
-      },
-      "COSC 3340": {
-        "courseName": "Intro to Automata & Computability",
-        "creditHours": 3,
-        "Description": "Introduction to automata theory (finite-state automata, push-down automata, Turing machines); formal systems (regular and context-free languages and grammars); computability, Church-Turing thesis."
-      },
-      "COSC 3320": {
-        "courseName": "Algorithms & Data Structures",
-        "creditHours": 3,
-        "Description": "Algorithm analysis and design, heuristics; advanced tree structures; advanced hashing techniques; sorting and searching; graphs, sets. NP-Completeness, Time and Space complexities."
-      },
-      "MATH 3339": {
-        "courseName": "Statistics for Sciences",
-        "creditHours": 3,
-        "Description": "Graphical and descriptive methods in statistics, probability, random variables and distributions, sampling, estimation, hypothesis testing, regression, analysis of variance, exploratory and diagnostics, statistical computing."
-      },
-      "COSC 3380": {
-        "courseName": "Database Systems",
-        "creditHours": 3,
-        "Description": "Declared Computer Science majors and minors, and Computer Engineering majors. Database design with ER model, relational model and normalization up to 3NF/BCNF normal forms. Relational algebra and basic SQL queries combining filters, joins and aggregations. SQL transaction processing. Overview of DBMS internal subsystems including: storage, indexing, query optimizer, locking, recovery manager, security mechanisms. Database application development."
-      },
-      "COSC 4353": {
-        "courseName": "Software Design",
-        "creditHours": 3,
-        "Description": "Object-oriented paradigm, classes, object relationship, software architecture, object modeling technique, design metrics, software development patterns, practices, and principles."
-      },
-      "ANTH 3304": {
-        "courseName": "Demographic Anthropology",
-        "creditHours": 3,
-        "Description": "Demographic methods as applied to small populations. Contributions of anthropologists to general theoretical questions about human populations."
-      },
-      "ANTH 3306": {
-        "courseName": "Sex and Culture",
-        "creditHours": 3,
-        "Description": "Anthropological view of nature, culture, and gender. Topics include sociobiology, primate sexuality, and cultural diversity of human sexuality."
-      },
-      "ANTH 3310": {
-        "courseName": "North American Indians",
-        "creditHours": 3,
-        "Description": "Society, culture, and cultural history of North American Indians."
-      },
-      "ANTH 3312": {
-        "courseName": "Mexican-American Culture",
-        "creditHours": 3,
-        "Description": "Society and culture of Mexican-Americans."
-      },
-      "DIGM 1300": {
-        "courseName": "Introduction to Digital Media",
-        "creditHours": 3,
-        "Description": "An introduction to the field of Digital Media, including digital imaging and design, print publishing, web publishing, and the business environment."
-      },
-      "DIGM 1350": {
-        "courseName": "Graphics for Digital Media",
-        "creditHours": 3,
-        "Description": "Pixel-based and vector graphics for use in print and digital media."
-      },
-      "DIGM 1376": {
-        "courseName": "User Experience (UX) Principles",
-        "creditHours": 3,
-        "Description": "Society and culture of Mexican-Americans."
-      },
-      "DIGM 2353": {
-        "courseName": "Page Layout and Design",
-        "creditHours": 3,
-        "Description": "Society and culture of Mexican-Americans."
-      },
-      "DIGM 2357": {
-        "courseName": "Content Strategy & Development",
-        "creditHours": 3,
-        "Description": "Society and culture of Mexican-Americans."
-      },
-      "DIGM 2352": {
-        "courseName": "Digital Photography",
-        "creditHours": 3,
-        "Description": "Society and culture of Mexican-Americans."
-      },
-      "DIGM 2325": {
-        "courseName": "Information Technology Applications for Digital Media",
-        "creditHours": 3,
-        "Description": "Society and culture of Mexican-Americans."
-      },
-      "MATH 1314": {
-        "courseName": "College Algebra",
-        "creditHours": 3,
-        "Description": "Quadratic equations, inequalities, logarithmic and exponential functions, graphs, elements of theory of equations, systems of equations."
-      },
-      "MATH 1324": {
-        "courseName": "Information Technology Applications for Digital Media",
-        "creditHours": 3,
-        "Description": "Systems of linear equations, introduction to linear programming, mathematics of finance, topics in probability and statistics."
-      },
-      "MATH 1342": {
-        "courseName": "Finite Math with Applications",
-        "creditHours": 3,
-        "Description": "Society and culture of Mexican-Americans."
-      },
-      "HDCS 1300": {
-        "courseName": "Human Ecosystems & Tech Change",
-        "creditHours": 3,
-        "Description": "Introduction to the study of human and consumer needs, values, and goals in relationship to natural, man-made, and behavioral systems within the context of dynamic technological change."
-      },
-      "PHIL 1321": {
-        "courseName": "Logic I",
-        "creditHours": 3,
-        "Description": "Techniques for analyzing statements and evaluating arguments, primarily through use of the apparatus of modern symbolic logic."
-      }
+  "allCourses": {
+    "COSC 1336": {
+      "courseName": "Computer Science Programming",
+      "creditHours": 3,
+      "Description": "Introduction to problem solving through computer programming. Students will learn the fundamental principles of computer science, basic hardware and software components of a computer system, computational thinking, basic algorithms, and programming concepts. Students will get hands-on experience in problem solving by designing, writing, testing and debugging programs in a modern programming language."
     },
-    "dropdownLists": {
-      "scienceCourses": [
-        "BIOL 1306",
-        "BIOL 1307",
-        "PHYS 1301",
-        "PHYS 1302",
-        "GEOL 1302",
-        "GEOL 1303",
-        "GEOL 1304",
-        "CHEM 1305",
-        "CHEM 1311",
-        "CHEM 1312"
-      ],
-      "minorFreeElectives": [
-        "COOK 1301",
-        "CARS 1311",
-        "ART 1301",
-        "ART 1302",
-        "ARTH 1300",
-        "ARTH 1380",
-        "ARTH 1381",
-        "MUSI 2302",
-        "MUSI 2342",
-        "THEA 1111"
-      ],
-      "creativeArtCourses": [
-        "ARCH 2350",
-        "ARED 2310",
-        "ARTS 1304",
-        "CLAS 3345"
-      ],
-      "languagePhilosophyCourses": [
-        "AAS 2320",
-        "AAS 2330",
-        "ARAB 3340",
-        "ARTH 1300"
-      ],
-      "coscElectives": [
-        "COSC 3337",
-        "COSC 4315",
-        "COSC 3371",
-        "COSC 4337"
-      ],
-      "behavioralScienceCourses": [
-        "ANTH 3304",
-        "ANTH 3306",
-        "ANTH 3310",
-        "ANTH 3312"
+    "ENGL 1301": {
+      "courseName": "First Year Writing I",
+      "creditHours": 3,
+      "Description": "A TSI placement score of at least 340, and an essay score of at least a 4 on the TSI Writing Assessment; or a placement score of less than 340, and an ABE Diagnostic level of at least 4, and an essay score of at least 5 on the TSI Writing Assessment; and a score ranging from 351 to 390 on the TSI Reading Assessment. Students may exempt the TSI by obtaining satisfactory scores on other accepted standardized tests. See http://www.uh.edu/ussc/tsi/ for details."
+    },
+    "HIST 1301": {
+      "courseName": "The United States to 1877",
+      "creditHours": 3,
+      "Description": "The social, economic, and political history of the United States to 1877."
+    },
+    "GOVT 2306": {
+      "courseName": "US & TX Constitutions and Politics",
+      "creditHours": 3,
+      "Description": "Introduction to the constitutions and politics of the United States and Texas, emphasizing constitutional structure, federalism, separation of powers, limited government, public opinion, elections, and civil liberties. (Introductory category)"
+    },
+    "MATH 2413": {
+      "courseName": "Calculus I",
+      "creditHours": 4,
+      "Description": "Calculus of rational functions, limits, derivatives, applications of the derivative, antiderivatives, the definite integral with applications, mean value theorem, fundamental theorem of calculus, and numerical integration."
+    },
+    "COSC 1437": {
+      "courseName": "Introduction to Programming",
+      "creditHours": 4,
+      "Description": "Fundamental concepts of structured programming; procedures and elementary data structures with a focus on problem solving strategies and implementation; computer organization, structured procedural programming, C/C++ programming language, and algorithm design."
+    },
+    "ENGL 1302": {
+      "courseName": "First Year Writing II",
+      "creditHours": 3,
+      "Description": "Detailed study of the principles of rhetoric as applied to analyzing and writing argumentative and persuasive essays; principles and methods of research, culminating in writing a substantial research paper."
+    },
+    "HIST 1302": {
+      "courseName": "The United States Since 1877",
+      "creditHours": 3,
+      "Description": "The social, economic, and political history of the United States since 1877."
+    },
+    "GOVT 2305": {
+      "courseName": "US Gov: Congress, Pres, & Courts",
+      "creditHours": 3,
+      "Description": "Introduction to the institutions of government with an emphasis on the congress, the president, and the federal courts. (Introductory category.)"
+    },
+    "MATH 2414": {
+      "courseName": "Calculus II",
+      "creditHours": 4,
+      "Description": "Calculus of transcendental functions: additional techniques and applications of integration, indeterminate forms, improper integrals, Taylor’s formula, and infinite series."
+    },
+    "COSC 2436": {
+      "courseName": "Programming & Data Structures",
+      "creditHours": 4,
+      "Description": "Introduction to fundamental data structures: arrays, lists, stacks, queues, hash tables, trees; sorting and searching; graph algorithms; design, analysis, and comparison of algorithms. Correctness verification techniques such as assertions and invariants. Review program specification, unit testing, and debugging."
+    },
+    "COSC 2425": {
+      "courseName": "Computer Org & Architecture",
+      "creditHours": 4,
+      "Description": "Low-level computer design, basics of digital design, and hardware/software interface; Principles of pipelining and caching, instruction pipelining, SIMD and multiprocessor systems."
+    },
+    "MATH 3321": {
+      "courseName": "Engineering Math",
+      "creditHours": 3,
+      "Description": "First order ordinary differential equations and initial value problems; higher order differential equations; vector spaces, matrices, determinants, eigenvectors and eigenvalues; applications to systems of first order equations; Laplace transforms."
+    },
+    "COSC 3360": {
+      "courseName": "Operating Systems",
+      "creditHours": 3,
+      "Description": "Operating system; sequential processes, concurrent processes, deadlock, mutual exclusion, semaphores; memory management, processor management, peripheral device management."
+    },
+    "COSC 3336": {
+      "courseName": "Computing Structures",
+      "creditHours": 3,
+      "Description": "Introduce methods of reasoning used in computer science; logical notation and proof methods; induction and recursion; sets, functions, and relations; graphs; the growth of functions; annotated programs and loop invariants."
+    },
+    "BIOL 1306": {
+      "courseName": "Biology for Science Majors I",
+      "creditHours": 3,
+      "Description": "BIOL 1306 is the first semester of a two-part Introduction to Biological Science course and focuses on biochemistry, cell biology and physiology."
+    },
+    "BIOL 1307": {
+      "courseName": "Biology for Science Majors II ",
+      "creditHours": 3,
+      "Description": "BIOL 1307 is the second semester of a two-part Introduction to Biological Science course and focuses on genetics, biotechnology, evolution and ecology"
+    },
+    "PHYS 1301": {
+      "courseName": "College Physics I ",
+      "creditHours": 3,
+      "Description": "First semester of a two part non-calculus-based course covering mechanics of one- and two-dimensional motion, dynamics, energy, momentum, rotational dynamics and kinematics, statics, gravity, oscillations, waves and fluids."
+    },
+    "PHYS 1302": {
+      "courseName": "College Physics II",
+      "creditHours": 3,
+      "Description": "Second semester of a two part non-calculus-based course covering thermodynamics, electricity, magnetism, electromagnetic waves, optics, and modern physics."
+    },
+    "GEOL 1302": {
+      "courseName": "Intro To Global Climate Change",
+      "creditHours": 3,
+      "Description": "Examines how past climate records and models provide a better understanding of possible future climate changes. Greenhouse gases, solar output, Earth’s orbit, and anthropogenic effects."
+    },
+    "GEOL 1303": {
+      "courseName": "Physical Geology",
+      "creditHours": 3,
+      "Description": "Principles of geology; emphasis on surface and internal processes of the earth."
+    },
+    "GEOL 1304": {
+      "courseName": "Historical Geology",
+      "creditHours": 3,
+      "Description": "Geologic history of the earth; introduction to the uses of geological principles to interpret earth history."
+    },
+    "CHEM 1305": {
+      "courseName": "Foundations of Chemistry",
+      "creditHours": 3,
+      "Description": "Concepts and principles of chemistry."
+    },
+    "CHEM 1311": {
+      "courseName": "Fundamentals of Chemistry",
+      "creditHours": 3,
+      "Description": "General principles, fundamental laws, atomic & molecular structure, states of matter, & elementary inorganic, nuclear & organic chemistry."
+    },
+    "CHEM 1312": {
+      "courseName": "Fundamentals of Chemistry 2",
+      "creditHours": 3,
+      "Description": "General principles, fundamental laws, equilibrium, kinetics, electrochemistry, and elementary inorganic, nuclear, and organic chemistry."
+    },
+    "ARCH 2350": {
+      "courseName": "History of the Built Environment I",
+      "creditHours": 3,
+      "Description": "First part of a two-semester chronological history of the global human-impacted environment, with attention to social, cultural, philosophical, technical, and environmental issues."
+    },
+    "ARED 2310": {
+      "courseName": "Introduction to Critical Visual Culture",
+      "creditHours": 3,
+      "Description": "Introduces key concepts, themes, and critical approaches in visual culture to understand images and the contexts in which they operate from a cross-disciplinary perspective. Emphasis is placed on critical investigation of contemporary art, art education, media literacy, and visual/cultural practices, covering subjects pertaining to the production, experience and understanding of visual culture and how these issues affect processes of learning about, making and displaying visual artifacts for developing critical thinking, effective visual communication, and informed practice."
+    },
+    "ARTS 1304": {
+      "courseName": "Art History II (15th Century to the Present)",
+      "creditHours": 3,
+      "Description": "Art and its relationship to society in and for which it was made from the Renaissance to the present."
+    },
+    "CLAS 3345": {
+      "courseName": "Myth&Performance in Greek Trag",
+      "creditHours": 3,
+      "Description": "The reshaping of myths in the tragedies performed in the fifth century BCE and in modern productions of those plays. Critical appraisal of text and performance in the respective cultural contexts."
+    },
+    "AAS 2320": {
+      "courseName": "Intro to African American Study",
+      "creditHours": 3,
+      "Description": "An introductory analysis of the discipline of African American/African Studies, its mission, key theories and major concerns."
+    },
+    "AAS 2330": {
+      "courseName": "Black Liberation Theology",
+      "creditHours": 3,
+      "Description": "This course will examine, compare and contrast the theologies and resulting programmatic actions taken by persons espousing Black Liberation Theology."
+    },
+    "ARAB 3340": {
+      "courseName": "Modern & Rationalism in Islamic Tradition",
+      "creditHours": 3,
+      "Description": "Systematic analysis of classical Islamic philosophical discourse and its contribution to the development of Islamic Modernism and Arab Enlightenment: including the Qur’an, Ghazali, Averroes, Muhammad Abduh, and Nasr Abu Zayd."
+    },
+    "ARTH 1300": {
+      "courseName": "Ways of Seeing: Art and Our Visual World",
+      "creditHours": 3,
+      "Description": "Examination of our visual world and the various ways in which that world has been analyzed and valued. May not be applied to a major or minor in art history or art."
+    },
+    "COOK 1301": {
+      "courseName": "Fundam of Cooking",
+      "creditHours": 3,
+      "Description": "Learn world cooking "
+    },
+    "CARS 1311": {
+      "courseName": "Mechanic Shop",
+      "creditHours": 3,
+      "Description": "Learn basic entry level car maintance from oil changes to changing your own brakes"
+    },
+    "ART 1301": {
+      "courseName": "Fundamentals of Drawing",
+      "creditHours": 3,
+      "Description": "The use of graphic media to explore fundamental visual relationships."
+    },
+    "ART 1302": {
+      "courseName": "History of Art",
+      "creditHours": 3,
+      "Description": "An introduction to monuments of art from the Renaissance to contemporary times"
+    },
+    "ARTH 1301": {
+      "courseName": "Ways of Seeing: Art and Our Visual World",
+      "creditHours": 3,
+      "Description": "Examination of our visual world and the various ways in which that world has been analyzed and valued. May not be applied to a major or minor in art history or art."
+    },
+    "ARTH 1380": {
+      "courseName": "Art & Society: Prehistoric to Gothic",
+      "creditHours": 3,
+      "Description": "Art and its relationships to society in and for which it was made from the ancient world to the Gothic period."
+    },
+    "ARTH 1381": {
+      "courseName": "Art & Society: Renaissance to Modern",
+      "creditHours": 3,
+      "Description": "Art and its relationship to society in and for which it was made from the Renaissance to the present."
+    },
+    "MUSI 2302": {
+      "courseName": "Listening to Jazz",
+      "creditHours": 3,
+      "Description": "Introduction to jazz listening and jazz history through the study of specific works in historical and cultural contexts."
+    },
+    "MUSI 2342": {
+      "courseName": "Music for Children",
+      "creditHours": 3,
+      "Description": "tudy covers the elements of music, and musical materials and teaching concepts appropriate for children in grades K-4."
+    },
+    "THEA 1111": {
+      "courseName": "Production",
+      "creditHours": 3,
+      "Description": "Service on one crew per semester on a rotating basis, developing students' skills in all phases of production. "
+    },
+    "COSC 3337": {
+      "courseName": "Data Science I",
+      "creditHours": 3,
+      "Description": "Data science process, data preprocessing, exploratory data analysis, data visualization, basic statistics, basic machine learning concepts, classification and prediction, similarity assessment, clustering, post-processing and interpreting data analysis results, use of data analysis tools and programming languages and data analysis case studies."
+    },
+    "COSC 3371": {
+      "courseName": "Cybersecurity",
+      "creditHours": 3,
+      "Description": "Introduction to cybersecurity: theoretical foundations of security, cryptographic algorithms and protocols, widely used security protocols (such as SSL), and practical attack and defense techniques, including software vulnerability exploits and firewalls."
+    },
+    "COSC 4315": {
+      "courseName": "Programming Languages and Paradigms",
+      "creditHours": 3,
+      "Description": "Discussion and comparison of basic programming styles and their underlying paradigms, such as imperative programming, functional programming, logic programming and object-oriented programming. Study of languages based on these paradigms."
+    },
+    "COSC 4337": {
+      "courseName": "Data Science II",
+      "creditHours": 3,
+      "Description": "This course offers the opportunity to learn advanced modeling and analysis techniques, and is intended for students who completed the course on Data Science I. A distinctive feature of this course is the opportunity to apply data-science skills on a semester long project based on real-world data. The demand for data scientists is increasing enormously these days, to the point that companies struggle finding candidates with the required skill set. After this course, students will be familiar with the most popular data science and machine learning techniques, ready to apply for a variety of data-science jobs in industry."
+    },
+    "COSC 3340": {
+      "courseName": "Intro to Automata & Computability",
+      "creditHours": 3,
+      "Description": "Introduction to automata theory (finite-state automata, push-down automata, Turing machines); formal systems (regular and context-free languages and grammars); computability, Church-Turing thesis."
+    },
+    "COSC 3320": {
+      "courseName": "Algorithms & Data Structures",
+      "creditHours": 3,
+      "Description": "Algorithm analysis and design, heuristics; advanced tree structures; advanced hashing techniques; sorting and searching; graphs, sets. NP-Completeness, Time and Space complexities."
+    },
+    "MATH 3339": {
+      "courseName": "Statistics for Sciences",
+      "creditHours": 3,
+      "Description": "Graphical and descriptive methods in statistics, probability, random variables and distributions, sampling, estimation, hypothesis testing, regression, analysis of variance, exploratory and diagnostics, statistical computing."
+    },
+    "COSC 3380": {
+      "courseName": "Database Systems",
+      "creditHours": 3,
+      "Description": "Declared Computer Science majors and minors, and Computer Engineering majors. Database design with ER model, relational model and normalization up to 3NF/BCNF normal forms. Relational algebra and basic SQL queries combining filters, joins and aggregations. SQL transaction processing. Overview of DBMS internal subsystems including: storage, indexing, query optimizer, locking, recovery manager, security mechanisms. Database application development."
+    },
+    "COSC 4353": {
+      "courseName": "Software Design",
+      "creditHours": 3,
+      "Description": "Object-oriented paradigm, classes, object relationship, software architecture, object modeling technique, design metrics, software development patterns, practices, and principles."
+    },
+    "ANTH 3304": {
+      "courseName": "Demographic Anthropology",
+      "creditHours": 3,
+      "Description": "Demographic methods as applied to small populations. Contributions of anthropologists to general theoretical questions about human populations."
+    },
+    "ANTH 3306": {
+      "courseName": "Sex and Culture",
+      "creditHours": 3,
+      "Description": "Anthropological view of nature, culture, and gender. Topics include sociobiology, primate sexuality, and cultural diversity of human sexuality."
+    },
+    "ANTH 3310": {
+      "courseName": "North American Indians",
+      "creditHours": 3,
+      "Description": "Society, culture, and cultural history of North American Indians."
+    },
+    "ANTH 3312": {
+      "courseName": "Mexican-American Culture",
+      "creditHours": 3,
+      "Description": "Society and culture of Mexican-Americans."
+    },
+    "DIGM 1300": {
+      "courseName": "Introduction to Digital Media",
+      "creditHours": 3,
+      "Description": "An introduction to the field of Digital Media, including digital imaging and design, print publishing, web publishing, and the business environment."
+    },
+    "DIGM 1350": {
+      "courseName": "Graphics for Digital Media",
+      "creditHours": 3,
+      "Description": "Pixel-based and vector graphics for use in print and digital media."
+    },
+    "DIGM 1376": {
+      "courseName": "User Experience (UX) Principles",
+      "creditHours": 3,
+      "Description": "Society and culture of Mexican-Americans."
+    },
+    "DIGM 2353": {
+      "courseName": "Page Layout and Design",
+      "creditHours": 3,
+      "Description": "Society and culture of Mexican-Americans."
+    },
+    "DIGM 2357": {
+      "courseName": "Content Strategy & Development",
+      "creditHours": 3,
+      "Description": "Society and culture of Mexican-Americans."
+    },
+    "DIGM 2352": {
+      "courseName": "Digital Photography",
+      "creditHours": 3,
+      "Description": "Society and culture of Mexican-Americans."
+    },
+    "DIGM 2325": {
+      "courseName": "Information Technology Applications for Digital Media",
+      "creditHours": 3,
+      "Description": "Society and culture of Mexican-Americans."
+    },
+    "MATH 1314": {
+      "courseName": "College Algebra",
+      "creditHours": 3,
+      "Description": "Quadratic equations, inequalities, logarithmic and exponential functions, graphs, elements of theory of equations, systems of equations."
+    },
+    "MATH 1324": {
+      "courseName": "Information Technology Applications for Digital Media",
+      "creditHours": 3,
+      "Description": "Systems of linear equations, introduction to linear programming, mathematics of finance, topics in probability and statistics."
+    },
+    "MATH 1342": {
+      "courseName": "Finite Math with Applications",
+      "creditHours": 3,
+      "Description": "Society and culture of Mexican-Americans."
+    },
+    "HDCS 1300": {
+      "courseName": "Human Ecosystems & Tech Change",
+      "creditHours": 3,
+      "Description": "Introduction to the study of human and consumer needs, values, and goals in relationship to natural, man-made, and behavioral systems within the context of dynamic technological change."
+    },
+    "PHIL 1321": {
+      "courseName": "Logic I",
+      "creditHours": 3,
+      "Description": "Techniques for analyzing statements and evaluating arguments, primarily through use of the apparatus of modern symbolic logic."
+    },
+    "DIGM 3351": {
+      "courseName": "Individualized Communication Processes",
+      "creditHours": 3,
+      "Description": "Content personalization of print media through static, versioned, and variable delivery methods; engaging with the audience through print and electronic media; the graphic production workflow including traditional, pure digital, and hybrid models; an introduction to tone and color reproduction and color management; and using print production equipment for pre-press, press, and post-press production."
+    },
+    "DIGM 3354": {
+      "courseName": "Video Production 1",
+      "creditHours": 3,
+      "Description": "Introduction to digital film and video production from concept development and planning through post-production to delivery. Students must pass a digital photography pretest during the first week of class to continue."
+    },
+    "DIGM 4372": {
+      "courseName": "Costing in Digital Media",
+      "creditHours": 3,
+      "Description": "Principles and techniques of cost estimation for digital media production."
+    },
+    "DIGM 4351": {
+      "courseName": "Portfolio Development for Digital Media",
+      "creditHours": 3,
+      "Description": "Students will brand themselves and their careers by completing and polishing their hard-copy portfolios and by using commercially-available online resources to build their online portfolios."
+    },
+    "DIGM 3252": {
+      "courseName": "Graphic Communication Output",
+      "creditHours": 3,
+      "Description": "Static and variable-data printing technologies; binding and finishing technologies; materials used in print production; history and significance of printing methodologies."
+    },
+    "DIGM 3355": {
+      "courseName": "Package Technology",
+      "creditHours": 3,
+      "Description": "Packaging structures from the perspectives of distribution packaging, materials, product protection, testing methodology, palletization, and designing for various shipping methods and channels. Current Topics in industry trends."
+    },
+    "DIGM 4390": {
+      "courseName": "Current Issues in Digital Media",
+      "creditHours": 3,
+      "Description": "Issues and topics in digital media."
+    },
+    "DIGM 4369": {
+      "courseName": "Entrepreneurship",
+      "creditHours": 3,
+      "Description": "Planning and organizing a single proprietorship with emphasis on technical assistance, marketing strategy, location, financing, legal issues, management of human resources, promotion, business records, and credit."
+    },
+    "DIGM 4379": {
+      "courseName": "Transmedia Marketing",
+      "creditHours": 3,
+      "Description": "The technology, production, and management of creative story-telling authored across multiple media distribution platforms."
+    },
+    "DIGM 4378": {
+      "courseName": "Senior Project",
+      "creditHours": 3,
+      "Description": "Directed research project."
+    },
+    "CIS 3320": {
+      "courseName": "Information Visualization",
+      "creditHours": 3,
+      "Description": " Information visualization offers instruments for reasoning about quantitative information, analyzing and communicating statistical information. The course overviews the main typologies of data graphics (data-maps, time-series, space-time narrative, relational diagrams, graphs and methods for dimensionality reduction) and provides a language for discussing data visualizations combined with a knowledge of the human perception of visual objects. The course teaches how to visualize information effectively by using statistical methods, combined with knowledge of the human perception and the basics of data graphics."
+    },
+    "SCLT 2380": {
+      "courseName": "Distribution Channels",
+      "creditHours": 3,
+      "Description": "Organization and operations of distribution channels with emphasis on vendor evaluation, value analysis, complex pricing, promotional strategies, and execution issues."
+    },
+    "ELET 2300": {
+      "courseName": "Introduction To C++ Programming",
+      "creditHours": 3,
+      "Description": "Fundamentals of C++ programming, conditional and looping constructs, functions and function overloading, arrays, pointers and references, class concepts, and files. Emphasis on practical applications."
+    },
+    "TLIM 3363": {
+      "courseName": "Technical Communications",
+      "creditHours": 3,
+      "Description": "Procedures and techniques of preparing technical memoranda, oral and written reports, manuals, and other source documents that fit the pattern of industrial and institutional communications."
+    },
+    "TLIM 3330": {
+      "courseName": "Innovation Principles",
+      "creditHours": 3,
+      "Description": "Methods and processes for creating innovations, leading disruptive change, and overview of innovation systems."
+    },
+    "TLIM 3331": {
+      "courseName": "Innovation Development",
+      "creditHours": 3,
+      "Description": "Generating innovative ideas; creative stimulus insights for technology and economic, social, and cultural trends; and a systematic approach to creativity."
+    },
+    "TLIM 4335": {
+      "courseName": "Communicating Innovation",
+      "creditHours": 3,
+      "Description": "Communicating innovative concepts through the use of the narrative power of visual imagery. Combining elements of professional, technical, and creative writing."
+    },
+    "TLIM 4340": {
+      "courseName": "Commercializing Innovation",
+      "creditHours": 3,
+      "Description": "Applying the scientific method to design experiments to evaluate and implement ideas. Determining the feasibility, sustainability, economics, and profitability of ideas."
+    }
+  },
+  "dropdownLists": {
+    "scienceCourses": [
+      "BIOL 1306",
+      "BIOL 1307",
+      "PHYS 1301",
+      "PHYS 1302",
+      "GEOL 1302",
+      "GEOL 1303",
+      "GEOL 1304",
+      "CHEM 1305",
+      "CHEM 1311",
+      "CHEM 1312"
+    ],
+    "minorFreeElectives": [
+      "COOK 1301",
+      "CARS 1311",
+      "ART 1301",
+      "ART 1302",
+      "ARTH 1300",
+      "ARTH 1380",
+      "ARTH 1381",
+      "MUSI 2302",
+      "MUSI 2342",
+      "THEA 1111"
+    ],
+    "creativeArtCourses": [
+      "ARCH 2350",
+      "ARED 2310",
+      "ARTS 1304",
+      "CLAS 3345"
+    ],
+    "languagePhilosophyCourses": [
+      "AAS 2320",
+      "AAS 2330",
+      "ARAB 3340",
+      "ARTH 1300"
+    ],
+    "coscElectives": [
+      "COSC 3337",
+      "COSC 4315",
+      "COSC 3371",
+      "COSC 4337"
+    ],
+    "behavioralScienceCourses": [
+      "ANTH 3304",
+      "ANTH 3306",
+      "ANTH 3310",
+      "ANTH 3312"
+    ],
+    "minorAppliedCourses": [
+      "TLIM 3363",
+      "TLIM 3330",
+      "TLIM 3331",
+      "TLIM 4335",
+      "TLIM 4340"
+    ],
+    "techinicalElectiveCourses": [
+      "COSC 1336",
+      "DIGM 3252",
+      "DIGM 3355",
+      "DIGM 4390",
+      "DIGM 4369",
+      "SCLT 2380",
+      "ELET 2300"
+    ]
+  },
+  "degreePlans": [
+    {
+      "name": "Computer Science",
+      "college": "College of Natural Sciences & Mathematics",
+      "degreeType": "Bachelor of Science",
+      "academicMap": [
+        {
+          "year": 1,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                "COSC 1336",
+                "ENGL 1301",
+                "HIST 1301",
+                "GOVT 2306",
+                "MATH 2413"
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                "COSC 1437",
+                "ENGL 1302",
+                "HIST 1302",
+                "GOVT 2305",
+                "MATH 2414"
+              ]
+            }
+          ]
+        },
+        {
+          "year": 2,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                "COSC 2436",
+                "COSC 2425",
+                "MATH 3321",
+                {
+                  "courseCode": "Approved Natural Science",
+                  "dropdownList": "scienceCourses"
+                }
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                {
+                  "courseCode": "Creative Arts",
+                  "dropdownList": "creativeArtCourses"
+                },
+                "COSC 3360",
+                "COSC 3336",
+                {
+                  "courseCode": "Approved Natural Science",
+                  "dropdownList": "scienceCourses"
+                },
+                {
+                  "courseCode": "Language, Philosophy and Culture",
+                  "dropdownList": "languagePhilosophyCourses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "year": 3,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                "COSC 3340",
+                "COSC 3320",
+                "MATH 3339",
+                {
+                  "courseCode": "Approved Natural Science",
+                  "dropdownList": "scienceCourses"
+                }
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                "COSC 3380",
+                {
+                  "courseCode": "Behavioral Science",
+                  "dropdownList": "behavioralScienceCourses"
+                },
+                {
+                  "courseCode": "Approved Natural Science",
+                  "dropdownList": "scienceCourses"
+                },
+                {
+                  "courseCode": "Minor/Free Elective",
+                  "dropdownList": "minorFreeElectives"
+                },
+                "COSC 4353"
+              ]
+            }
+          ]
+        },
+        {
+          "year": 4,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                {
+                  "courseCode": "COSC Advanced Elective",
+                  "dropdownList": "coscElectives"
+                },
+                {
+                  "courseCode": "Minor/Free Elective",
+                  "dropdownList": "minorFreeElectives"
+                },
+                {
+                  "courseCode": "Minor/Free Elective",
+                  "dropdownList": "minorFreeElectives"
+                },
+                {
+                  "courseCode": "Minor/Free Elective",
+                  "dropdownList": "minorFreeElectives"
+                }
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                {
+                  "courseCode": "COSC Advanced Elective",
+                  "dropdownList": "coscElectives"
+                },
+                {
+                  "courseCode": "Minor/Free Elective",
+                  "dropdownList": "minorFreeElectives"
+                },
+                {
+                  "courseCode": "Minor/Free Elective",
+                  "dropdownList": "minorFreeElectives"
+                },
+                {
+                  "courseCode": "Minor/Free Elective",
+                  "dropdownList": "minorFreeElectives"
+                }
+              ]
+            }
+          ]
+        }
       ]
     },
-    "degreePlans": [
-      {
-        "name": "Computer Science",
-        "college": "College of Natural Sciences & Mathematics",
-        "degreeType": "Bachelor of Science",
-        "academicMap": [
-          {
-            "year": 1,
-            "semesters": [
-              {
-                "semesterName": "Semester 1 Fall",
-                "courses": [
-                  "COSC 1336",
-                  "ENGL 1301",
-                  "HIST 1301",
-                  "GOVT 2306",
-                  "MATH 2413"
-                ]
-              },
-              {
-                "semesterName": "Semester 2 Spring",
-                "courses": [
-                  "COSC 1437",
-                  "ENGL 1302",
-                  "HIST 1302",
-                  "GOVT 2305",
-                  "MATH 2414"
-                ]
-              }
-            ]
-          },
-          {
-            "year": 2,
-            "semesters": [
-              {
-                "semesterName": "Semester 1 Fall",
-                "courses": [
-                  "COSC 2436",
-                  "COSC 2425",
-                  "MATH 3321",
-                  {
-                    "courseCode": "NATURAL_SCIENCE",
-                    "dropdownList": "scienceCourses"
-                  }
-                ]
-              },
-              {
-                "semesterName": "Semester 2 Spring",
-                "courses": [
-                  {
-                    "courseCode": "CREATIVE_ARTS",
-                    "dropdownList": "creativeArtCourses"
-                  },
-                  "COSC 3360",
-                  "COSC 3336",
-                  {
-                    "courseCode": "SCIENCE_ELECTIVE",
-                    "dropdownList": "scienceCourses"
-                  },
-                  {
-                    "courseCode": "LANG_PHIL_CULTURE",
-                    "dropdownList": "languagePhilosophyCourses"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Digital Media",
-        "college": "College of Technology",
-        "degreeType": "Bachelor of Science",
-        "academicMap": [
-          {
-            "year": 1,
-            "semesters": [
-              {
-                "semesterName": "Semester 1 Fall",
-                "courses": [
-                  "ENGL 1301",
-                  "DIGM 1300",
-                  "HIST 1301",
-                  {
-                    "courseCode": "CREATIVE_ARTS",
-                    "dropdownList": "creativeArtCourses"
-                  },
-                  "MATH 1314"
-                ]
-              },
-              {
-                "semesterName": "Semester 2 Spring",
-                "courses": [
-                  "ENGL 1302",
-                  "DIGM 1350",
-                  "DIGM 1376",
-                  "HIST 1302",
-                  "MATH 1324"
-                ]
-              }
-            ]
-          },
-          {
-            "year": 2,
-            "semesters": [
-              {
-                "semesterName": "Semester 1 Fall",
-                "courses": [
-                  "DIGM 2353",
-                  "DIGM 2357",
-                  "MATH 1342",
-                  "HDCS 1300",
-                  "GOVT 2306"
-                ]
-              },
-              {
-                "semesterName": "Semester 2 Spring",
-                "courses": [
-                  "DIGM 2352",
-                  "DIGM 2325",
-                  {
-                    "courseCode": "BEHAVIORAL_SCIENCE",
-                    "dropdownList": "behavioralScienceCourses"
-                  },
-                  "PHIL 1321",
-                  "GOVT 2305"
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+    {
+      "name": "Digital Media",
+      "college": "College of Technology",
+      "degreeType": "Bachelor of Science",
+      "academicMap": [
+        {
+          "year": 1,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                "ENGL 1301",
+                "DIGM 1300",
+                "HIST 1301",
+                {
+                  "courseCode": "Creative Arts",
+                  "dropdownList": "creativeArtCourses"
+                },
+                "MATH 1314"
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                "ENGL 1302",
+                "DIGM 1350",
+                "DIGM 1376",
+                "HIST 1302",
+                "MATH 1324"
+              ]
+            }
+          ]
+        },
+        {
+          "year": 2,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                "DIGM 2353",
+                "DIGM 2357",
+                "MATH 1342",
+                "HDCS 1300",
+                "GOVT 2306"
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                "DIGM 2352",
+                "DIGM 2325",
+                {
+                  "courseCode": "Behavioral Science",
+                  "dropdownList": "behavioralScienceCourses"
+                },
+                "PHIL 1321",
+                "GOVT 2305"
+              ]
+            }
+          ]
+        },
+        {
+          "year": 3,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                "DIGM 3351",
+                "DIGM 3354",
+                {
+                  "courseCode": "Approved Natural Science",
+                  "dropdownList": "scienceCourses"
+                },
+                {
+                  "courseCode": "Minor - Applied Innovation",
+                  "dropdownList": "minorAppliedCourses"
+                },
+                {
+                  "courseCode": "Technical Elective",
+                  "dropdownList": "techinicalElectiveCourses"
+                }
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                "CIS 3320",
+                {
+                  "courseCode": "Approved Natural Science",
+                  "dropdownList": "scienceCourses"
+                },
+                {
+                  "courseCode": "Language, Philosophy and Culture",
+                  "dropdownList": "languagePhilosophyCourses"
+                },
+                {
+                  "courseCode": "Minor - Applied Innovation",
+                  "dropdownList": "minorAppliedCourses"
+                },
+                {
+                  "courseCode": "Technical Elective",
+                  "dropdownList": "techinicalElectiveCourses"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "year": 4,
+          "semesters": [
+            {
+              "semesterName": "Semester 1 Fall",
+              "courses": [
+                "DIGM 4372",
+                "DIGM 4351",
+                {
+                  "courseCode": "Technical Elective",
+                  "dropdownList": "techinicalElectiveCourses"
+                },
+                {
+                  "courseCode": "Technical Elective",
+                  "dropdownList": "techinicalElectiveCourses"
+                },
+                {
+                  "courseCode": "Minor - Applied Innovation",
+                  "dropdownList": "minorAppliedCourses"
+                }
+              ]
+            },
+            {
+              "semesterName": "Semester 2 Spring",
+              "courses": [
+                "DIGM 4379",
+                "DIGM 4378",
+                {
+                  "courseCode": "Behavioral Science",
+                  "dropdownList": "behavioralScienceCourses"
+                },
+                {
+                  "courseCode": "Technical Elective",
+                  "dropdownList": "techinicalElectiveCourses"
+                },
+                {
+                  "courseCode": "Minor - Applied Innovation",
+                  "dropdownList": "minorAppliedCourses"
+                },
+                {
+                  "courseCode": "Minor - Applied Innovation",
+                  "dropdownList": "minorAppliedCourses"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -30,6 +30,9 @@
         <div class="academicMapHead">
             <p>Please select a degree plan from the dropdown menu</p>
             <div class="dropdown">
+                <!-- <button id="adminBtn" class="btn btn-primary" type="button">
+                    Admin Portal
+                </button> -->
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Degree Plans
                 </button>
@@ -40,247 +43,172 @@
                 </div>
             </div>
         </div>
-
+        
         <div id="planDetails">
             <!-- plan details will dynamically be displayed here -->
         </div>
-
+        
         <script>
-            function showPlan(planName) {
-                let planDetails = document.getElementById("planDetails");
+            // stores degree plan data
+            let degreeData = {};
 
-                // below will change too as it will be dynamic as well
-                if (planName === "Computer Science") {
-                    planDetails.innerHTML = `
-                    <h2>COLLEGE OF NATURAL SCIENCES & MATHEMATICS</h2>
-                    <h3>Bachelor of Science, Computer Science</h3>
-                    <h4>Four-Year Academic Map</h4>
-                    
-                    <table>
-            <tr>
-                <th class="year" colspan="7">YEAR 1</th>
-            </tr>
-            <tr>
-                <th colspan="3">Semester 1 Fall</th>
-                <th colspan="3">Semester 2 Spring</th>
-                <th rowspan="1">Total</th>
-            </tr>
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
+// retrieve data
+fetch("courses.json")
+    .then((response) => response.json())
+    .then((data) => {
+        degreeData = data;
+        console.log(degreeData);
+    });
 
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-            <tr>
-                <td id="naturalScienceCourseNumber"></td>
-                <td id=naturalScienceCourseName>
-                <select id="courseSelect" onchange="updateCourseDetails(this)">
-                    <option value="">Select Natural Science Course</option>
-                    <option value="BIOL 1234" data-hours="3">Biology 101</option>
-                    <option value="CHEM 2345" data-hours="4">Chemistry 101</option>
-                    <option value="PHYS 3456" data-hours="3">Physics 101</option>
-                </select>
-        </td>
-        <td id="naturalScienceCourseHours"></td>
+function showPlan(planName) {
+    localStorage.setItem("currentDegreePlan", planName);
+    let planDetails = document.getElementById("planDetails");
+    let selectedPlan = degreeData.degreePlans.find((plan) => plan.name === planName);
 
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
+    if (!selectedPlan) {
+        planDetails.innerHTML = "<p>Plan not found.</p>";
+        return;
+    }
 
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
+    let planDetailsHTML = `<h2>${selectedPlan.college}</h2>
+                    <h3>${selectedPlan.degreeType}, ${planName}</h3>
+                    <h4>Four-Year Academic Map</h4>`;
 
-            <tr> 
-                <td colspan="2">Semester Hours</td>
-                <td>16</td>
+    selectedPlan.academicMap.forEach((year, j) => {
+        planDetailsHTML += `<table class="table table-bordered">
+                        <tr><th class="year" colspan="7">YEAR ${year.year}</th></tr>
+                        <tr>
+                            <th colspan="3">Semester 1 Fall</th>
+                            <th colspan="3">Semester 2 Spring</th>
+                            <th>Total</th>
+                        </tr>`;
 
-                <td colspan="2">Semester Hours</td>
-                <td>16</td> 
+        let semesters = year.semesters;
+        let maxCourses = Math.max(semesters[0].courses.length, semesters[1].courses.length);
+        let semester1TotalHours = 0;
+        let semester2TotalHours = 0;
 
-                <td colspan="1" class="total-hours">33</td>
-            </tr>
-        </table> 
-                    `;
-                } else if (planName === "Digital Media") {
-                    planDetails.innerHTML = `
-                    <h2>COLLEGE OF TECHNOLOGY</h2>
-                    <h3>Bachelor of Science, Digital Media</h3>
-                    <h4>Four-Year Academic Map</h4>
-                    
-                    <table>
-            <tr>
-                <th class="year" colspan="7">YEAR 1</th>
-            </tr>
-            <tr>
-                <th colspan="3">Semester 1 Fall</th>
-                <th colspan="3">Semester 2 Spring</th>
-                <th rowspan="1">Total</th>
-            </tr>
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
+        for (let i = 0; i < maxCourses; i++) {
+            let uniqueSelectIdSemester1 = "year" + j + "semester1SelectID" + i;
+            let uniqueSelectIdSemester2 = "year" + j + "semester2SelectID" + i;
 
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
+            planDetailsHTML += "<tr>";
 
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
-
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-
-            <tr> 
-                <td colspan="2">Semester Hours</td>
-                <td>16</td>
-
-                <td colspan="2">Semester Hours</td>
-                <td>16</td> 
-
-                <td colspan="1" class="total-hours">33</td>
-            </tr>
-        </table> 
-
-        <table>
-            <tr>
-                <th class="year" colspan="7">YEAR 2</th>
-            </tr>
-            <tr>
-                <th colspan="3">Semester 1 Fall</th>
-                <th colspan="3">Semester 2 Spring</th>
-                <th rowspan="1">Total</th>
-            </tr>
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
-
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
-
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-            <tr>
-                <td>COSC 1336</td>
-                <td>Computer Science Programming</td>
-                <td>3</td> 
-
-                <td>COSC 1437</td>
-                <td>Introduction to Programming</td>
-                <td>4</td>
-                <td></td>
-            </tr> 
-
-            <tr> 
-                <td colspan="2">Semester Hours</td>
-                <td>16</td>
-
-                <td colspan="2">Semester Hours</td>
-                <td>16</td> 
-
-                <td colspan="1" class="total-hours">33</td>
-            </tr>
-        </table> 
-                    `;
-                }
-                localStorage.setItem("selectedPlan", planName);
+            // Semester 1 Courses
+            if (semesters[0].courses[i]) {
+                planDetailsHTML += generateCourseCell(semesters[0].courses[i], uniqueSelectIdSemester1);
+                semester1TotalHours += getCourseHours(semesters[0].courses[i]);
+            } else {
+                planDetailsHTML += "<td colspan='3'></td>";
             }
 
-            function updateCourseDetails(selectElement) {
-                let courseNumberTd = document.getElementById("naturalScienceCourseNumber");
-                let courseNameTd = document.getElementById("naturalScienceCourseName");
-                let courseHoursTd = document.getElementById("naturalScienceCourseHours");
-                let selectedOption = selectElement.options[selectElement.selectedIndex];
-
-                if (selectElement.value) {
-                    courseNumberTd.textContent = selectElement.value;
-                    courseNameTd.textContent = selectedOption.text;
-                    courseHoursTd.textContent = selectedOption.getAttribute("data-hours");
-
-                    let courseData = {
-                        number: selectElement.value,
-                        name: selectedOption.text,
-                        hours: selectedOption.getAttribute("data-hours"),
-                    };
-                    localStorage.setItem("selectedCourse", JSON.stringify(courseData));
-
-                    console.log("Course data saved to localStorage:", courseData);
-                } else {
-                    // Clear the text content if no course is selected
-                    courseNumberTd.textContent = "";
-                    courseNameTd.textContent = "";
-                    courseHoursTd.textContent = "";
-                }
+            // Semester 2 Courses
+            if (semesters[1].courses[i]) {
+                planDetailsHTML += generateCourseCell(semesters[1].courses[i], uniqueSelectIdSemester2);
+                semester2TotalHours += getCourseHours(semesters[1].courses[i]);
+            } else {
+                planDetailsHTML += "<td colspan='3'></td>";
             }
 
-            // window.onload = function() {
-            //     // Load saved course details
-            //     let savedCourse = JSON.parse(localStorage.getItem('selectedCourse'));
-            //     console.log('Loaded course data from localStorage:', savedCourse);
+            if (i === 0) {
+                planDetailsHTML += `<td rowspan='${maxCourses}'>${semester1TotalHours + semester2TotalHours}</td>`;
+            }
 
-            //     if (savedCourse && savedCourse.number) {
-            //         let selectElement = document.getElementById('courseSelect');
-            //         let courseNumberTd = document.getElementById('naturalScienceCourseNumber');
-            //         let courseNameTd = document.getElementById('naturalScienceCourseName');
-            //         let courseHoursTd = document.getElementById('naturalScienceCourseHours');
+            planDetailsHTML += "</tr>";
+        }
 
-            //         if (selectElement && courseNumberTd && courseNameTd && courseHoursTd) {
-            //             selectElement.value = savedCourse.number;
-            //             courseNumberTd.textContent = savedCourse.number;
-            //             courseNameTd.textContent = savedCourse.name;
-            //             courseHoursTd.textContent = savedCourse.hours;
+        planDetailsHTML += `</table>`;
+    });
 
-            //             // Manually trigger the change event to update the table
-            //             updateCourseDetails(selectElement);
-            //         }
-            //     }
+    planDetails.innerHTML = planDetailsHTML;
+    loadStoredValues();
+}
 
-            //     // Load saved plan
-            //     let savedPlan = localStorage.getItem('selectedPlan');
-            //     if (savedPlan) {
-            //         showPlan(savedPlan);
-            //     }
-            // };
+function generateCourseCell(course, uniqueSelectId) {
+    if (typeof course === "string") {
+        const courseDetails = degreeData.allCourses[course];
+        return `<td>${course}</td><td colspan="2">${courseDetails.courseName}</td>`;
+    } else {
+        let cellHTML = `<td>${course.courseCode}</td><td colspan="2"><select id="${uniqueSelectId}" placeholder="Please Select an Option" onchange="storeCellValue(this)">`;
+        cellHTML += `<option>Select a course</option>`;
+        degreeData.dropdownLists[course.dropdownList].forEach((dropdownCourseCode) => {
+            const dropdownCourseDetails = degreeData.allCourses[dropdownCourseCode];
+            cellHTML += `<option value="${dropdownCourseCode}" onChange={} >${dropdownCourseDetails.courseName}</option>`;
+        });
+        cellHTML += `</select></td>`;
+        return cellHTML;
+    }
+}
+// event driven programming OR passing events in js
+let selectionDict = {};
+
+function storeCellValue(selectElement) {
+    const currentDegreePlan = localStorage.getItem('currentDegreePlan');
+
+    // Get all stored selections
+    const storedSelections = localStorage.getItem('selections');
+    const allSelections = storedSelections ? JSON.parse(storedSelections) : {};
+
+    // Initialize the current plan's selections if not present
+    if (!allSelections[currentDegreePlan]) {
+        allSelections[currentDegreePlan] = {};
+    }
+
+    // Check for duplicates
+    const selectedValue = selectElement.value;
+    for (const id in allSelections[currentDegreePlan]) {
+        if (allSelections[currentDegreePlan][id] === selectedValue && id !== selectElement.id) {
+            alert("This selection has already been made. Please choose a different option.");
+            // Optionally, reset the dropdown
+            selectElement.value = allSelections[currentDegreePlan][selectElement.id] || "default"; // Replace "default" with your default option value
+            return; // Exit the function to prevent saving the duplicate
+        }
+    }
+
+    // Store the selection if no duplicates are found
+    allSelections[currentDegreePlan][selectElement.id] = selectedValue;
+
+    // Save the updated selections to local storage
+    localStorage.setItem('selections', JSON.stringify(allSelections));
+}
+
+function loadStoredValues() {
+    // Get the current degree plan from local storage
+    const currentDegreePlan = localStorage.getItem("currentDegreePlan");
+
+    // Check if there's a stored selection for the current degree plan
+    const storedSelections = localStorage.getItem("selections");
+    if (storedSelections) {
+        const allSelections = JSON.parse(storedSelections);
+
+        // Get the selections specific to the current degree plan
+        const selectionDict = allSelections[currentDegreePlan] || {};
+
+        // Update the select elements with the stored values
+        for (const id in selectionDict) {
+            const selectElement = document.getElementById(id);
+            if (selectElement) {
+                selectElement.value = selectionDict[id];
+            }
+        }
+    }
+}
+// Call this function when the page loads
+document.addEventListener("DOMContentLoaded", loadStoredValues);
+
+function getCourseHours(course) {
+    if (typeof course === "string") {
+        return degreeData.allCourses[course].creditHours || 0;
+    } else {
+        // If the course has a dropdown, return the hours of the first option as a default
+        return degreeData.allCourses[degreeData.dropdownLists[course.dropdownList][0]].creditHours || 0;
+    }
+}
+
+document.getElementById("adminBtn").addEventListener("click", function () {
+    window.location.href = "administration.html";
+});
+
         </script>
     </body>
 </html>

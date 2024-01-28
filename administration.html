@@ -7,44 +7,143 @@
         <link href=styles.css rel=stylesheet />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <style>
-
+            .course-list-container{
+                width:200px;
+            }
+            .course-item{
+                margin:14px;
+            }
+            
         </style>
     </head>
 <body>
     <h2>Admin Portal</h2>    
-    <div id="courseList">
-        <h2>Course List</h2>
+    <div id="courseList" class="course-list-container" style="border:1px solid black">
+        <h2 style="text-align: center;">Course List</h2>
+    </div>
+    <div id="courseModal" class="modal" style="display: none">
 
+        <div id="coursePopupContent"></div>
     </div>
 
     <script>
 
 
         document.addEventListener('DOMContentLoaded', function() {
-    fetch('courses.json')
-    .then(response => response.json())
-    .then(data => renderCourses(data.allCourses));
-});
+            fetch('courses.json')
+            .then(response => response.json())
+            .then(data => renderCourses(data.allCourses));
+        });
 
-function renderCourses(allCourses) {
-    const courseList = document.getElementById('courseList');
+        function renderCourses(allCourses) {
+            const courseList = document.getElementById('courseList');
 
-    const sortedCourses = Object.entries(allCourses).sort((a, b) => {
-        const courseCodeA = a[0];
-        const courseCodeB = b[0];
-        return courseCodeA.localeCompare(courseCodeB);
+            const sortedCourses = Object.entries(allCourses).sort((a, b) => {
+                const courseCodeA = a[0];
+                const courseCodeB = b[0];
+                return courseCodeA.localeCompare(courseCodeB);
+            });
+
+            sortedCourses.forEach(([courseCode, course]) => {
+                const courseElement = document.createElement('div');
+                courseElement.className = 'course-item';
+                courseElement.innerHTML = `<img src="/rubbish-bin.svg" alt="trash icon" style="width:24px; cursor:pointer;">
+                    <strong>${courseCode}</strong>: ${course.courseName}`;
+                courseElement.querySelector('img').addEventListener('click', () => deleteCourse(courseCode, courseElement));
+                courseElement.addEventListener('click', () => showModal(courseCode, course));
+
+                courseElement.setAttribute('data-course-code', courseCode);
+
+                courseList.appendChild(courseElement);
+            });
+
+            const trashIcon = courseElement.querySelector('img');
+    trashIcon.addEventListener('click', (event) => {
+        event.stopPropagation();
+        deleteCourse(courseCode, courseElement);
     });
+        }
 
 
-    sortedCourses.forEach(([courseCode, course]) => {
-        const courseElement = document.createElement('div');
-        courseElement.className = 'course-item';
-        courseElement.innerHTML = `
-            <strong>${courseCode}</strong>: ${course.courseName}`;
-        courseList.appendChild(courseElement);
-    });
+        function deleteCourse(courseCode, courseElement = null) {
+    // Show confirmation dialog
+    const isConfirmed = confirm(`Are you sure you want to delete the course: ${courseCode}?`);
+
+    if (isConfirmed) {
+        // If courseElement is not provided, find it in the course list
+        if (!courseElement) {
+            courseElement = document.querySelector(`.course-item[data-course-code="${courseCode}"]`);
+        }
+
+        // Remove the course element from the DOM
+        if (courseElement) {
+            courseElement.remove();
+        }
+        alert(`Course ${courseCode} deleted`);
+    } else {
+        alert('Deletion cancelled');
+    }
+    closeModal() 
+
 }
-        // renderCourses();
+
+    
+function showModal(courseCode, course) {
+    // Extract necessary data from the course object
+    console.log(course)
+    console.log(courseCode)
+
+    const {courseName, creditHours, Description } = course;
+
+    const popup = document.getElementById("courseModal");
+    popup.classList.add("course-popup");
+    const popupContent = document.getElementById("coursePopupContent");
+    popupContent.innerHTML = "";
+    popupContent.classList.add("popup-content");
+
+    // Admin page: show form for editing
+    popupContent.innerHTML = `
+        <form id="editCourseForm" class='edit-form'>
+            <h3>Edit Course</h3>
+            <label for="courseCode">Course Code:</label>
+            <input type="text" id="courseCode" name="courseCode" value="${courseCode}">
+            <label for="courseName">Course Name:</label>
+            <input type="text" id="courseName" name="courseName" value="${courseName}">
+            <label for="courseHours">Credit Hours:</label>
+            <input type="number" id="courseHours" name="courseHours" value="${creditHours}">
+            <label for="courseDescription">Description:</label>
+            <textarea id="courseDescription" name="courseDescription" style="height: 100px;">${Description}</textarea>
+            <div>
+                <button class="save-btn" type="submit">Save Changes</button>
+                <button class="close-btn" style="background-color: red; color: #fff;" onclick="deleteCourse('${courseCode}')">Delete Course</button>
+                <button class="close-btn" onclick="closeModal()">Close</button>
+            </div>
+        </form>
+    `;
+
+    document.getElementById("editCourseForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        // Get updated course details from the form
+        const updatedCourse = {
+            Code: document.getElementById("courseCode").value,
+            Name: document.getElementById("courseName").value,
+            Hours: parseInt(document.getElementById("courseHours").value, 10),
+            Description: document.getElementById("courseDescription").value,
+        };
+
+        // Update the course list
+        updateTableWithEditedCourse(courseCode, updatedCourse);
+
+        closeModal();
+    });
+    popup.style.display = "block";
+}
+
+function closeModal() {
+    document.getElementById("courseModal").style.display = "none";
+}
+
     </script>
 
 </body>
