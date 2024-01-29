@@ -63,17 +63,43 @@
             let degreeData = {};
 
 // retrieve data
-fetch("courses.json")
-    .then((response) => response.json())
-    .then((data) => {
-        degreeData = data;
-        console.log(degreeData);
-    });
+function loadAcademicMapData() {
+    let storedData = localStorage.getItem('courseData');
+    if (storedData) {
+        degreeData = JSON.parse(storedData);
+        console.log("Loaded data from localStorage:", degreeData);
+    } else {
+        fetch("courses.json")
+            .then((response) => response.json())
+            .then((data) => {
+                degreeData = data;
+                localStorage.setItem('courseData', JSON.stringify(data));
+                console.log("Loaded data from JSON file:", degreeData);
+            });
+    }
+}
+document.addEventListener("DOMContentLoaded", function() {
+    loadAcademicMapData();
+});
+
+function getCourseDetails(courseCode) {
+    const storedData = JSON.parse(localStorage.getItem('courseData'));
+    if (storedData && storedData.allCourses && storedData.allCourses[courseCode]) {
+        console.log(`Course details from localStorage for ${courseCode}:`, storedData.allCourses[courseCode]);
+        return storedData.allCourses[courseCode];
+    } else {
+        console.log(`Course details from degreeData for ${courseCode}:`, degreeData.allCourses[courseCode]);
+        return degreeData.allCourses[courseCode];
+    }
+}
+
 
 function showPlan(planName) {
     localStorage.setItem("currentDegreePlan", planName);
     let planDetails = document.getElementById("planDetails");
+    // let selectedPlan = degreeData.degreePlans.find((plan) => plan.name === planName);
     let selectedPlan = degreeData.degreePlans.find((plan) => plan.name === planName);
+    console.log("Selected Plan:", selectedPlan);
     let totalFourYearHours = 0; 
 
     if (!selectedPlan) {
@@ -167,20 +193,30 @@ function showPlan(planName) {
 }
 
 function generateCourseCell(course, uniqueSelectId) {
+    console.log("generateCourseCell called with:", course, uniqueSelectId);
+
     if (typeof course === "string") {
-        // For static courses (non-dropdown)
-        const courseDetails = degreeData.allCourses[course];
+        // Fetch course details from the appropriate source
+        const courseDetails = getCourseDetails(course);
+        console.log(`Course details for ${course}:`, courseDetails);
+
+        // Check if courseDetails is undefined
+        if (!courseDetails) {
+            console.error(`Course details not found for code: ${course}`);
+            return `<td colspan='3'>Course details not available</td>`;
+        }
+
         // Return the cell HTML with an onclick event that calls showModal passing the course code
         return `<td colspan="1" class="clickable" onclick="showModal('${course}')">${course}</td><td colspan="1">${courseDetails.courseName}</td><td colspan="1">${courseDetails.creditHours}</td>`;
     } else {
         // For courses that require a dropdown selection
-        let cellHTML = `<td id="${uniqueSelectId}CourseNumber" onclick="showModal('${course.courseCode}')">${course.courseCode}</td>`; // Include the onclick event here
+        let cellHTML = `<td id="${uniqueSelectId}CourseNumber">${course.courseCode}</td>`;
         cellHTML += `<td colspan="1"><select id="${uniqueSelectId}" onchange="updateCourseDetails('${uniqueSelectId}', this.value); storeCellValue(this)">`;
         cellHTML += `<option value="">Select a course</option>`;
 
         degreeData.dropdownLists[course.dropdownList].forEach((dropdownCourseCode) => {
-            const dropdownCourseDetails = degreeData.allCourses[dropdownCourseCode];
-            cellHTML += `<option value="${dropdownCourseCode}">${dropdownCourseDetails.courseName}</option>`;
+            const dropdownCourseDetails = getCourseDetails(dropdownCourseCode);
+            cellHTML += `<option value="${dropdownCourseCode}">${dropdownCourseDetails ? dropdownCourseDetails.courseName : 'Unknown'}</option>`;
         });
 
         cellHTML += `</select></td>`;
@@ -188,6 +224,7 @@ function generateCourseCell(course, uniqueSelectId) {
         return cellHTML;
     }
 }
+
 
 
 

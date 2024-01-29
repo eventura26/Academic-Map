@@ -76,6 +76,24 @@
 
     <script>
 
+function loadData() {
+    let storedData = localStorage.getItem('courseData');
+    if (storedData) {
+        const data = JSON.parse(storedData);
+        renderCourses(data.allCourses); // Ensure this function processes the course data correctly
+    } else {
+        fetch('courses.json')
+            .then(response => response.json())
+            .then(data => {
+                localStorage.setItem('courseData', JSON.stringify(data));
+                renderCourses(data.allCourses);
+            });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadData);
+
+
 
         document.addEventListener('DOMContentLoaded', function() {
             fetch('courses.json')
@@ -132,26 +150,74 @@
     }
 }
 
-        function deleteCourse(courseCode, courseElement = null) {
-    // Show confirmation dialog
+function deleteCourse(courseCode) {
+    
     const isConfirmed = confirm(`Are you sure you want to delete the course: ${courseCode}?`);
-
     if (isConfirmed) {
-        // If courseElement is not provided, find it in the course list
-        if (!courseElement) {
-            courseElement = document.querySelector(`.course-item[data-course-code="${courseCode}"]`);
-        }
+        // Retrieve the current data
+        let data = JSON.parse(localStorage.getItem('courseData'));
 
-        // Remove the course element from the DOM
+        // Delete the course from the data
+        delete data.allCourses[courseCode];
+
+        // Update localStorage
+        localStorage.setItem('courseData', JSON.stringify(data));
+
+        // Remove the course element from the UI
+        const courseElement = document.querySelector(`.course-item[data-course-code="${courseCode}"]`);
         if (courseElement) {
             courseElement.remove();
         }
-        alert(`Course ${courseCode} deleted`);
-    } else {
-        alert('Deletion cancelled');
-    }
-    closeModal() 
 
+        alert(`Course ${courseCode} deleted`);
+        closeModal();
+
+    }
+}
+
+function saveEditedCourse() {
+    const courseCode = document.getElementById("courseCode").value;
+    const updatedCourseName = document.getElementById("courseName").value;
+    const updatedCreditHours = document.getElementById("courseHours").value;
+    const updatedDescription = document.getElementById("courseDescription").value;
+
+    // Retrieve the current data
+    let data = JSON.parse(localStorage.getItem('courseData'));
+
+    // Check if the courseCode exists
+    if (data.allCourses[courseCode]) {
+        // Update the course details
+        data.allCourses[courseCode] = {
+            courseName: updatedCourseName,
+            creditHours: updatedCreditHours,
+            Description: updatedDescription
+        };
+
+        // Update localStorage
+        localStorage.setItem('courseData', JSON.stringify(data));
+
+        // Update the UI to reflect the changes
+        // ...
+
+        alert(`Course ${courseCode} updated`);
+    } else {
+        alert('Error: Invalid course code');
+    }
+
+    closeModal();
+}
+
+function updateCourseInUI(courseCode, updatedCourse) {
+    const courseElement = document.querySelector(`.course-item[data-course-code="${courseCode}"]`);
+
+    if (courseElement) {
+        // Update the content of the course item
+        // Adjust these selectors to match your HTML structure
+        // courseElement.querySelector('.course-code').textContent = courseCode;
+        // courseElement.querySelector('.course-name').textContent = updatedCourse.courseName;
+        // courseElement.querySelector('.course-hours').textContent = `${updatedCourse.creditHours} hours`;
+        // courseElement.querySelector('.course-description').textContent = updatedCourse.description;
+    }
 }
 
     
@@ -162,7 +228,7 @@ function showModal(courseCode, course) {
     const {courseName, creditHours, Description } = course;
 
     const modal = document.getElementById("courseModal");
-    modal.classList.add("course-modal");
+    modal.classList.add("course-ed-modal");
     const modalContent = document.getElementById("courseModalContent");
     modalContent.innerHTML = "";
     modalContent.classList.add("modal-content");
@@ -180,7 +246,7 @@ function showModal(courseCode, course) {
             <label for="courseDescription">Description:</label>
             <textarea id="courseDescription" name="courseDescription" style="height: 100px;">${Description}</textarea>
             <div style="margin-top:14px">
-                <button type="button" class="btn btn-success">Save Changes</button>
+                <button type="button" class="btn btn-success" onclick="saveEditedCourse()">Save Changes</button>
                 <button type="button" class="btn btn-danger" onclick="deleteCourse('${courseCode}')">Delete Course</button>
                 <button type="button" class="btn btn-secondary" onclick="closeModal()">Close</button>
             </div>
