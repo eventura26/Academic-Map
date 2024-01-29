@@ -24,8 +24,6 @@
         .academicMapHead p {
             margin-bottom: 15px;
         }
-
-
     </style>
 
     <body>
@@ -54,308 +52,74 @@
             <div id="courseModalContent">
                 <!-- Content will be added dynamically -->
             </div>
-            <button class="close-btn" onclick="closeModal()">Close</button>
         </div>
 
 
+        <script src="/script.js"></script>
         <script>
-            // stores degree plan data
-            let degreeData = {};
-
-// retrieve data
-function loadAcademicMapData() {
-    let storedData = localStorage.getItem('courseData');
-    if (storedData) {
-        degreeData = JSON.parse(storedData);
-        console.log("Loaded data from localStorage:", degreeData);
-    } else {
-        fetch("courses.json")
-            .then((response) => response.json())
-            .then((data) => {
-                degreeData = data;
-                localStorage.setItem('courseData', JSON.stringify(data));
-                console.log("Loaded data from JSON file:", degreeData);
-            });
-    }
-}
-document.addEventListener("DOMContentLoaded", function() {
-    loadAcademicMapData();
-});
-
-function getCourseDetails(courseCode) {
-    const storedData = JSON.parse(localStorage.getItem('courseData'));
-    if (storedData && storedData.allCourses && storedData.allCourses[courseCode]) {
-        console.log(`Course details from localStorage for ${courseCode}:`, storedData.allCourses[courseCode]);
-        return storedData.allCourses[courseCode];
-    } else {
-        console.log(`Course details from degreeData for ${courseCode}:`, degreeData.allCourses[courseCode]);
-        return degreeData.allCourses[courseCode];
-    }
-}
-
-
-function showPlan(planName) {
-    localStorage.setItem("currentDegreePlan", planName);
-    let planDetails = document.getElementById("planDetails");
-    // let selectedPlan = degreeData.degreePlans.find((plan) => plan.name === planName);
-    let selectedPlan = degreeData.degreePlans.find((plan) => plan.name === planName);
-    console.log("Selected Plan:", selectedPlan);
-    let totalFourYearHours = 0; 
-
-    if (!selectedPlan) {
-        planDetails.innerHTML = "<p>Plan not found.</p>";
-        return;
-    }
-
-    let planDetailsHTML = `<h2>${selectedPlan.college}</h2>
-                    <h3>${selectedPlan.degreeType}, ${planName}</h3>
-                    <h4>Four-Year Academic Map</h4>
-                    <p>Click a course code to view more details</p>
-                    
-                    `;
-
-    selectedPlan.academicMap.forEach((year, j) => {
-        planDetailsHTML += `<table class="table table-bordered">
-                <thead>
-                        <tr><th class="year" colspan="7">YEAR ${year.year}</th></tr>
-        
-                        <tr>
-                            <th colspan="3">Semester 1 Fall</th>
-                            <th colspan="3">Semester 2 Spring</th>
-                            <th colspan="1">Total</th>
-                        </tr>
-                        </thead>
-                        <tbody>`;
-                        ;
-
-        let semesters = year.semesters;
-        let maxCourses = Math.max(semesters[0].courses.length, semesters[1].courses.length);
-        let semester1TotalHours = 0;
-        let semester2TotalHours = 0;
-
-        for (let i = 0; i < maxCourses; i++) {
-    let uniqueSelectIdSemester1 = "year" + j + "semester1SelectID" + i;
-    let uniqueSelectIdSemester2 = "year" + j + "semester2SelectID" + i;
-
-    planDetailsHTML += "<tr>";
-
-    // Semester 1 Courses
-    if (semesters[0].courses[i]) {
-        planDetailsHTML += generateCourseCell(semesters[0].courses[i], uniqueSelectIdSemester1);
-        semester1TotalHours += getCourseHours(semesters[0].courses[i]);
-    } else {
-        planDetailsHTML += "<td colspan='3'></td>";
-    }
-
-    // Semester 2 Courses
-    if (semesters[1].courses[i]) {
-        planDetailsHTML += generateCourseCell(semesters[1].courses[i], uniqueSelectIdSemester2);
-        semester2TotalHours += getCourseHours(semesters[1].courses[i]);
-    } else {
-        planDetailsHTML += "<td colspan='3'></td>";
-    }
-
-    // Add a blank cell under the "Total" column if it's not the first course row
-    if (i !== 0) {
-        planDetailsHTML += "<td></td>"; // This cell is for the "Total" column
-    }
-
-    planDetailsHTML += "</tr>";
-}
-
-        planDetailsHTML += `
-            <tr>
-                <td colspan="2">Semester 1 Total Hours</td>
-                <td colspan="1">${semester1TotalHours}</td>
-                <td colspan="2">Semester 2 Total Hours</td>
-                <td colspan="1">${semester2TotalHours}</td>
-                <td>Total: ${semester1TotalHours + semester2TotalHours}</td>
-            </tr>
-        `;
-    
-        totalFourYearHours += semester1TotalHours + semester2TotalHours;
-
-        planDetailsHTML += `</tbody></table>`;
-    });
-
-    planDetailsHTML += `
-        <table class="table table-bordered">
-            <tfoot>
-                <tr>
-                    <td colspan="6" class="text-right">Total 4-Year Hours</td>
-                    <td>${totalFourYearHours}</td>
-                </tr>
-            </tfoot>
-        </table>`;
-    planDetails.innerHTML = planDetailsHTML;
-    loadStoredValues();
-
-}
-
-function generateCourseCell(course, uniqueSelectId) {
-    console.log("generateCourseCell called with:", course, uniqueSelectId);
-
-    if (typeof course === "string") {
-        // Fetch course details from the appropriate source
-        const courseDetails = getCourseDetails(course);
-        console.log(`Course details for ${course}:`, courseDetails);
-
-        // Check if courseDetails is undefined
-        if (!courseDetails) {
-            console.error(`Course details not found for code: ${course}`);
-            return `<td colspan='3'>Course details not available</td>`;
-        }
-
-        // Return the cell HTML with an onclick event that calls showModal passing the course code
-        return `<td colspan="1" class="clickable" onclick="showModal('${course}')">${course}</td><td colspan="1">${courseDetails.courseName}</td><td colspan="1">${courseDetails.creditHours}</td>`;
-    } else {
-        // For courses that require a dropdown selection
-        let cellHTML = `<td id="${uniqueSelectId}CourseNumber">${course.courseCode}</td>`;
-        cellHTML += `<td colspan="1"><select id="${uniqueSelectId}" onchange="updateCourseDetails('${uniqueSelectId}', this.value); storeCellValue(this)">`;
-        cellHTML += `<option value="">Select a course</option>`;
-
-        degreeData.dropdownLists[course.dropdownList].forEach((dropdownCourseCode) => {
-            const dropdownCourseDetails = getCourseDetails(dropdownCourseCode);
-            cellHTML += `<option value="${dropdownCourseCode}">${dropdownCourseDetails ? dropdownCourseDetails.courseName : 'Unknown'}</option>`;
-        });
-
-        cellHTML += `</select></td>`;
-        cellHTML += `<td id="${uniqueSelectId}CreditHours"></td>`; // Placeholder for credit hours
-        return cellHTML;
-    }
-}
-
-
-
-
-
-function updateCourseDetails(uniqueSelectId, selectedCourseCode) {
-    const courseNumberCell = document.getElementById(`${uniqueSelectId}CourseNumber`);
-    const creditHoursCell = document.getElementById(`${uniqueSelectId}CreditHours`);
-
-    if (selectedCourseCode) {
-        const courseDetails = degreeData.allCourses[selectedCourseCode];
-        courseNumberCell.innerText = selectedCourseCode; // Update course number
-        creditHoursCell.innerText = courseDetails.creditHours; // Update credit hours
-
-        // Set the onclick attribute to call showModal with the new course code
-        courseNumberCell.setAttribute('onclick', `showModal('${selectedCourseCode}')`);
-        courseNumberCell.classList.add('clickable');
-    } else {
-        // Reset if no course is selected
-        courseNumberCell.innerText = '';
-        creditHoursCell.innerText = '';
-        
-        // Remove the onclick attribute if no course is selected
-        courseNumberCell.removeAttribute('onclick');
-        courseNumberCell.classList.remove('clickable');
-    }
-
-    // Continue with the rest of your existing logic...
-    const selectElement = document.getElementById(uniqueSelectId);
-    storeCellValue(selectElement);
-}
-
 
 // event driven programming OR passing events in js
 let selectionDict = {};
 
 function storeCellValue(selectElement) {
-    const currentDegreePlan = localStorage.getItem('currentDegreePlan');
+const currentDegreePlan = localStorage.getItem('currentDegreePlan');
 
-    // Get all stored selections
-    const storedSelections = localStorage.getItem('selections');
-    const allSelections = storedSelections ? JSON.parse(storedSelections) : {};
+// Get all stored selections
+const storedSelections = localStorage.getItem('selections');
+const allSelections = storedSelections ? JSON.parse(storedSelections) : {};
 
-    // Initialize the current plan's selections if not present
-    if (!allSelections[currentDegreePlan]) {
-        allSelections[currentDegreePlan] = {};
-    }
+// Initialize the current plan's selections if not present
+if (!allSelections[currentDegreePlan]) {
+allSelections[currentDegreePlan] = {};
+}
+// Check for duplicates
+const selectedValue = selectElement.value;
+for (const id in allSelections[currentDegreePlan]) {
+if (allSelections[currentDegreePlan][id] === selectedValue && id !== selectElement.id) {
+alert("This selection has already been made. Please choose a different option.");
+// Optionally, reset the dropdown
+selectElement.value = allSelections[currentDegreePlan][selectElement.id] || "default"; // Replace "default" with your default option value
+return; // Exit the function to prevent saving the duplicate
+}
+}
+// Store the selection if no duplicates are found
+allSelections[currentDegreePlan][selectElement.id] = selectedValue;
 
-    // Check for duplicates
-    const selectedValue = selectElement.value;
-    for (const id in allSelections[currentDegreePlan]) {
-        if (allSelections[currentDegreePlan][id] === selectedValue && id !== selectElement.id) {
-            alert("This selection has already been made. Please choose a different option.");
-            // Optionally, reset the dropdown
-            selectElement.value = allSelections[currentDegreePlan][selectElement.id] || "default"; // Replace "default" with your default option value
-            return; // Exit the function to prevent saving the duplicate
-        }
-    }
-
-    // Store the selection if no duplicates are found
-    allSelections[currentDegreePlan][selectElement.id] = selectedValue;
-
-    // Save the updated selections to local storage
-    localStorage.setItem('selections', JSON.stringify(allSelections));
+// Save the updated selections to local storage
+localStorage.setItem('selections', JSON.stringify(allSelections));
 }
 
 function loadStoredValues() {
-    // Get the current degree plan from local storage
-    const currentDegreePlan = localStorage.getItem("currentDegreePlan");
+// Get the current degree plan from local storage
+const currentDegreePlan = localStorage.getItem("currentDegreePlan");
 
-    // Check if there's a stored selection for the current degree plan
-    const storedSelections = localStorage.getItem("selections");
-    if (storedSelections) {
-        const allSelections = JSON.parse(storedSelections);
+// Check if there's a stored selection for the current degree plan
+const storedSelections = localStorage.getItem("selections");
+if (storedSelections) {
+const allSelections = JSON.parse(storedSelections);
 
-        // Get the selections specific to the current degree plan
-        const selectionDict = allSelections[currentDegreePlan] || {};
+// Get the selections specific to the current degree plan
+const selectionDict = allSelections[currentDegreePlan] || {};
 
-        // Update the select elements and corresponding course details with the stored values
-        for (const id in selectionDict) {
-            const selectedCourseCode = selectionDict[id];
-            const selectElement = document.getElementById(id);
-            if (selectElement) {
-                selectElement.value = selectedCourseCode;
-                updateCourseDetails(id, selectedCourseCode); // Update course code and credit hours
-            }
-        }
-    }
+// Update the select elements and corresponding course details with the stored values
+for (const id in selectionDict) {
+const selectedCourseCode = selectionDict[id];
+const selectElement = document.getElementById(id);
+if (selectElement) {
+    selectElement.value = selectedCourseCode;
+    updateCourseDetails(id, selectedCourseCode); // Update course code and credit hours
+}
+}
+}
 }
 
 
 // Call this function when the page loads
 document.addEventListener("DOMContentLoaded", loadStoredValues);
 
-function getCourseHours(course) {
-    if (typeof course === "string") {
-        return degreeData.allCourses[course].creditHours || 0;
-    } else {
-        // If the course has a dropdown, return the hours of the first option as a default
-        return degreeData.allCourses[degreeData.dropdownLists[course.dropdownList][0]].creditHours || 0;
-    }
-}
-
 document.getElementById("adminBtn").addEventListener("click", function () {
-    window.location.href = "administration.html";
+window.location.href = "administration.html";
 });
-
-function showModal(courseCode) {
-    const courseDetails = degreeData.allCourses[courseCode]; 
-    if (!courseDetails) {
-        console.error('Course details not found for code:', courseCode);
-        return;
-    }
-
-    const modal = document.getElementById("courseModal");
-    const modalContent = document.getElementById("courseModalContent");
-
-    // Add new content
-    modalContent.innerHTML = `
-        <h3>${courseCode} - ${courseDetails.courseName}</h3>
-        <p>Credit Hours: ${courseDetails.creditHours}</p>
-        <h3>Description:</h3>
-        <p>${courseDetails.Description}</p>`;
-
-    // Show modal
-    modal.style.display = "block";
-}
-
-
-function closeModal() {
-    document.getElementById("courseModal").style.display = "none";
-}
 
         </script>
     </body>

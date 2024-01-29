@@ -84,16 +84,16 @@ table tbody tr:nth-of-type(even) {
     display: none; /* hide by default */
 }
 
-.modal-content h3 {
+.edit-form h3 {
     color: #241b16; 
     margin-bottom: 10px;
 }
 
-.modal-content label, p, h3{
+.edit-form label, p, h3{
     display: flex;
     justify-content: start;
 }
-.modal-content  {
+.edit-form  {
     color: #333; 
     line-height: 1.6;
     margin-bottom: 10px;
