@@ -10,7 +10,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     </head>
-
     <style>
         .academicMapHead {
             margin: 10px auto;
@@ -24,8 +23,11 @@
         .academicMapHead p {
             margin-bottom: 15px;
         }
-    </style>
 
+        table select{
+            width: 333px;
+        }
+    </style>
     <body>
         <div class="academicMapHead">
             <p>Please select a degree plan from the dropdown menu</p>
@@ -43,83 +45,91 @@
                 </div>
             </div>
         </div>
-        
+
         <div id="planDetails">
             <!-- plan details will dynamically be displayed here -->
         </div>
-        
+
         <div id="courseModal" class="course-modal" style="display: none;">
             <div id="courseModalContent">
                 <!-- Content will be added dynamically -->
             </div>
         </div>
+    </body>
+</html>
 
 
         <script src="/script.js"></script>
-        <script>
+<script>
 
-// event driven programming OR passing events in js
-let selectionDict = {};
+            // event driven programming OR passing events in js
 
-function storeCellValue(selectElement) {
-const currentDegreePlan = localStorage.getItem('currentDegreePlan');
+            // function below is for storing dropdown choices
+            function storeCellValue(selectElement) {
+                
+                // retrieves which degree plan we're looking at
+                const currentDegreePlan = localStorage.getItem('currentDegreePlan');
+                
+                // get all stored selections
+                const storedSelections = localStorage.getItem('selections');
+                
+                // if there is data stored it parses, if not it initiates an empty object
+                const allSelections = storedSelections ? JSON.parse(storedSelections) : {};
 
-// Get all stored selections
-const storedSelections = localStorage.getItem('selections');
-const allSelections = storedSelections ? JSON.parse(storedSelections) : {};
+                // this checks if there is not selection data already stored for the degree plan
+                // for ex if a new degree plan is present it initiates a new empty object to store selections
+                if (!allSelections[currentDegreePlan]) {
+                allSelections[currentDegreePlan] = {};
+                }
 
-// Initialize the current plan's selections if not present
-if (!allSelections[currentDegreePlan]) {
-allSelections[currentDegreePlan] = {};
-}
-// Check for duplicates
-const selectedValue = selectElement.value;
-for (const id in allSelections[currentDegreePlan]) {
-if (allSelections[currentDegreePlan][id] === selectedValue && id !== selectElement.id) {
-alert("This selection has already been made. Please choose a different option.");
-// Optionally, reset the dropdown
-selectElement.value = allSelections[currentDegreePlan][selectElement.id] || "default"; // Replace "default" with your default option value
-return; // Exit the function to prevent saving the duplicate
-}
-}
-// Store the selection if no duplicates are found
-allSelections[currentDegreePlan][selectElement.id] = selectedValue;
+                // below checks for duplicates
+                const selectedValue = selectElement.value; // grab selected value from drop down
+                // loops thru all selections stored and compares what is then selected
+                for (const id in allSelections[currentDegreePlan]) {
+                if (allSelections[currentDegreePlan][id] === selectedValue && id !== selectElement.id) {
+                alert("This selection has already been made. Please choose a different option.");
+                
+                selectElement.value = allSelections[currentDegreePlan][selectElement.id] || "Select a course";
+                return; 
+                }
+                }
+    
+                // stores selection
+                allSelections[currentDegreePlan][selectElement.id] = selectedValue;
+                
+                // saves to local storage
+                localStorage.setItem('selections', JSON.stringify(allSelections));
+            }
+            
+            function loadStoredValues() {
+                // grabs current degree plan from local storage
+                const currentDegreePlan = localStorage.getItem("currentDegreePlan");
 
-// Save the updated selections to local storage
-localStorage.setItem('selections', JSON.stringify(allSelections));
-}
+                // checks if there's stored selections for the degree plan
+                const storedSelections = localStorage.getItem("selections");
+                if (storedSelections) {
+                    const allSelections = JSON.parse(storedSelections);
 
-function loadStoredValues() {
-// Get the current degree plan from local storage
-const currentDegreePlan = localStorage.getItem("currentDegreePlan");
+                    // get the selections specific to the current degree plan
+                    const selectionDict = allSelections[currentDegreePlan] || {};
 
-// Check if there's a stored selection for the current degree plan
-const storedSelections = localStorage.getItem("selections");
-if (storedSelections) {
-const allSelections = JSON.parse(storedSelections);
-
-// Get the selections specific to the current degree plan
-const selectionDict = allSelections[currentDegreePlan] || {};
-
-// Update the select elements and corresponding course details with the stored values
-for (const id in selectionDict) {
-const selectedCourseCode = selectionDict[id];
-const selectElement = document.getElementById(id);
-if (selectElement) {
-    selectElement.value = selectedCourseCode;
-    updateCourseDetails(id, selectedCourseCode); // Update course code and credit hours
-}
-}
-}
-}
-
-
-// Call this function when the page loads
-document.addEventListener("DOMContentLoaded", loadStoredValues);
-
-document.getElementById("adminBtn").addEventListener("click", function () {
-window.location.href = "administration.html";
-});
+                    // updates the select elements and course details with the stored values
+                    for (const id in selectionDict) {
+                        const selectedCourseCode = selectionDict[id];
+                        const selectElement = document.getElementById(id);
+                        if (selectElement) {
+                            selectElement.value = selectedCourseCode;
+                            updateCourseDetails(id, selectedCourseCode); // Update course code and credit hours
+                        }
+                    }
+                }
+            }
+                    
+            document.addEventListener("DOMContentLoaded", loadStoredValues);
+            
+            document.getElementById("adminBtn").addEventListener("click", function () {
+            window.location.href = "administration.html";
+            });
 
         </script>
     </body>

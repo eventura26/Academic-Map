@@ -1,183 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Academic Map - Administration</title>
-        <link href=styles.css rel=stylesheet />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link href="styles.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <script src="script.js"></script>
         <style>
-            .container{
+            .container {
                 text-align: center;
-                margin-top:24px
+                margin-top: 24px;
             }
-            .control-btns{
-                margin-top: 20px;;
+            .control-btns {
+                margin-top: 20px;
             }
             .course-list-container {
-    display: none; 
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;;
+                display: none;
+                flex-wrap: wrap;
+                border:1px solid black;
+                justify-content: center;
+                margin-top: 20px;
+            }
 
-}
+            .course-item {
+                margin: 14px;
+                justify-content: flex-start;
+                flex-basis: calc(33% - 28px); /* For 3 columns, adjust for margins */
+                box-sizing: border-box;
+                display: flex;
+                justify-content: center;
+                align-items: center; /* Optional, for vertical alignment */
+                flex-direction: column; /* Optional, for vertical stacking */
+                display: flex;
+    justify-content: flex-start;
+    align-items: center; /* Optional, for vertical alignment */
+            }
 
-.course-item {
-    margin: 14px;
-    flex-basis: calc(33% - 28px); /* For 3 columns, adjust for margins */
-    box-sizing: border-box;
-}
+            .course-text{
+                text-align: center;
+                margin:0 auto;
+            }
 
-.course-selection:hover{
-    color:blue    
-}
-            
+            .course-selection:hover {
+                color: blue;
+            }
         </style>
     </head>
-<body>
-    <div class="container">
-        <h2>Admin Portal</h2>    
-        
-        <div class="control-btns">
-            <button type="button" class="btn btn-info" onclick="toggleCourseList()">View All Courses</button>
+    <body>
+        <div class="container">
+            <h2>Admin Portal</h2>
 
-            <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                View/Edit by Degree Plan
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="degreePlansDropdown">
-                <!-- Degree plans will be dynamically inserted here -->
+            <div class="control-btns">
+                <button type="button" class="btn btn-info" onclick="toggleCourseList()">View All Courses</button>
+
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    View/Edit by Degree Plan
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="degreePlansDropdown">
+                    <!-- Degree plans will be dynamically inserted here -->
+                </div>
+
+                <button type="button" class="btn btn-success">+ Add a Course</button>
+                <button type="button" class="btn btn-secondary" onclick="window.open('/academicmap.html', '_blank')">Student View</button>
             </div>
-            
-            <button type="button" class="btn btn-success">+ Add a Course</button>
-            <button type="button" class="btn btn-secondary" onclick="window.open('/academicmap.html', '_blank')">Student View</button>
-        </div>
- 
 
-        <div id="courseList" class="course-list-container">
-            <!-- <h2 style="text-align: center;">Course List</h2> -->
-        </div>
-
-        <!-- <div id="courseModal" class="course-modal" style="display: none">
-            <div id="courseModalContent" class="modal-content">
-
+            <div id="courseList" class="course-list-container">
+                <!-- <h2 style="text-align: center;">Course List</h2> -->
             </div>
-        </div> -->
 
-        <div id="courseModal" style="display: none">
-            <div id="courseModalContent">
-
+            <div id="courseModal" style="display: none;">
+                <div id="courseModalContent"></div>
             </div>
-      
-        </div>
 
-        <div id="planDetails">
-            <!-- plan details will dynamically be displayed here -->
+            <div id="planDetails">
+                <!-- plan details will dynamically be displayed here -->
+            </div>
         </div>
+    </body>
+</html>
 
-</div>
 
     <script>
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Set the admin flag
+document.addEventListener("DOMContentLoaded", function () {
+    // set admin flag
     isAdmin = true;
 
-    // Load data and other initializations
-    loadData();
+    fetch("courses.json")
+        .then((response) => response.json())
+        .then((data) => renderCourses(data.allCourses));
+
+    loadAcademicMapData();
+    populateDegreePlansDropdown();
 });
 
+function renderCourses(allCourses) {
+    // grab element to render data in
+    const courseList = document.getElementById("courseList");
 
-function loadData() {
-    let storedData = localStorage.getItem('courseData');
-    if (storedData) {
-        const data = JSON.parse(storedData);
-        renderCourses(data.allCourses); // Ensure this function processes the course data correctly
-    } else {
-        fetch('courses.json')
-            .then(response => response.json())
-            .then(data => {
-                localStorage.setItem('courseData', JSON.stringify(data));
-                renderCourses(data.allCourses);
-            });
-    }
-}
+    // grabs object, makes a key ordered pair and alphabetizes it
+    const sortedCourses = Object.entries(allCourses).sort((a, b) => {
+        const courseCodeA = a[0];
+        const courseCodeB = b[0];
+        return courseCodeA.localeCompare(courseCodeB);
+    });
 
-document.addEventListener('DOMContentLoaded', loadData);
-document.addEventListener('DOMContentLoaded', populateDegreePlansDropdown);
+    sortedCourses.forEach(([courseCode, course]) => {
+        const courseElement = document.createElement("div");
+        courseElement.className = "course-item";
+        courseElement.innerHTML = `
+        <div class="course-list-div">
+        <img src="/rubbish-bin.svg" alt="trash icon" style="width:24px; cursor:pointer;">
+        <span class="course-text clickable"><strong>${courseCode}</strong>: ${course.courseName}</span>
+        </div>
+        `;
 
-
-
-        document.addEventListener('DOMContentLoaded', function() {
-            fetch('courses.json')
-            .then(response => response.json())
-            .then(data => renderCourses(data.allCourses));
+        // Event listener for the delete icon
+        courseElement.querySelector("img").addEventListener("click", (event) => {
+            event.stopPropagation();
+            deleteCourse(courseCode, courseElement);
         });
 
-        function renderCourses(allCourses) {
-            const courseList = document.getElementById('courseList');
+        // Event listener for the text part
+        courseElement.querySelector(".course-text").addEventListener("click", () => {
+            showModal(courseCode, course);
+        });
 
-            const sortedCourses = Object.entries(allCourses).sort((a, b) => {
-                const courseCodeA = a[0];
-                const courseCodeB = b[0];
-                return courseCodeA.localeCompare(courseCodeB);
-            });
+        courseElement.setAttribute("data-course-code", courseCode);
 
-            sortedCourses.forEach(([courseCode, course]) => {
-    const courseElement = document.createElement('div');
-    courseElement.className = 'course-item';
-    courseElement.innerHTML = `
-        <img src="/rubbish-bin.svg" alt="trash icon" style="width:24px; cursor:pointer;">
-        <span class="course-text clickable"><strong>${courseCode}</strong>: ${course.courseName}</span>`;
-    
-    // Event listener for the delete icon
-    courseElement.querySelector('img').addEventListener('click', (event) => {
+        courseList.appendChild(courseElement);
+    });
+
+    const trashIcon = courseElement.querySelector("img");
+    trashIcon.addEventListener("click", (event) => {
         event.stopPropagation();
         deleteCourse(courseCode, courseElement);
     });
+}
 
-    // Event listener for the text part
-    courseElement.querySelector('.course-text').addEventListener('click', () => {
-        showModal(courseCode, course);
-    });
-
-    courseElement.setAttribute('data-course-code', courseCode);
-
-    courseList.appendChild(courseElement);
-});
-
-
-            const trashIcon = courseElement.querySelector('img');
-    trashIcon.addEventListener('click', (event) => {
-        event.stopPropagation();
-        deleteCourse(courseCode, courseElement);
-    });
-        }
-
-        function toggleCourseList() {
-    let courseList = document.getElementById('courseList');
-    if (courseList.style.display === 'none' || courseList.style.display === '') {
-        courseList.style.display = 'flex';
+function toggleCourseList() {
+    let courseList = document.getElementById("courseList");
+    if (courseList.style.display === "none" || courseList.style.display === "") {
+        courseList.style.display = "flex";
     } else {
-        courseList.style.display = 'none';
+        courseList.style.display = "none";
     }
 }
 
+// deletes from stored json data
 function deleteCourse(courseCode) {
-    
     const isConfirmed = confirm(`Are you sure you want to delete the course: ${courseCode}?`);
     if (isConfirmed) {
         // Retrieve the current data
-        let data = JSON.parse(localStorage.getItem('courseData'));
+        let data = JSON.parse(localStorage.getItem("courseData"));
 
         // Delete the course from the data
         delete data.allCourses[courseCode];
-console.log(`${courseCode} deleted`);
+        console.log(`${courseCode} deleted`);
         // Update localStorage
-        localStorage.setItem('courseData', JSON.stringify(data));
+        localStorage.setItem("courseData", JSON.stringify(data));
 
         // Remove the course element from the UI
         const courseElement = document.querySelector(`.course-item[data-course-code="${courseCode}"]`);
@@ -187,7 +171,6 @@ console.log(`${courseCode} deleted`);
 
         alert(`Course ${courseCode} deleted`);
         closeModal();
-
     }
 }
 
@@ -198,7 +181,7 @@ function saveEditedCourse() {
     const updatedDescription = document.getElementById("courseDescription").value;
 
     // Retrieve the current data
-    let data = JSON.parse(localStorage.getItem('courseData'));
+    let data = JSON.parse(localStorage.getItem("courseData"));
 
     // Check if the courseCode exists
     if (data.allCourses[courseCode]) {
@@ -206,33 +189,32 @@ function saveEditedCourse() {
         data.allCourses[courseCode] = {
             courseName: updatedCourseName,
             creditHours: updatedCreditHours,
-            Description: updatedDescription
+            Description: updatedDescription,
         };
 
         // Update localStorage
-        localStorage.setItem('courseData', JSON.stringify(data));
+        localStorage.setItem("courseData", JSON.stringify(data));
 
         // Update the UI to reflect the changes
         updateCourseInUI(courseCode, {
             courseName: updatedCourseName,
             creditHours: updatedCreditHours,
-            Description: updatedDescription
+            Description: updatedDescription,
         });
 
         alert(`Course ${courseCode} updated`);
     } else {
-        alert('Error: Invalid course code');
+        alert("Error: Invalid course code");
     }
-
     closeModal();
+    showPlan(currentDegreePlan);
+
 }
 
 function updateCourseInUI(courseCode, updatedCourse) {
     const courseElement = document.querySelector(`.course-item[data-course-code="${courseCode}"]`);
     if (courseElement) {
-        // Assuming the course element structure, update the content
-        courseElement.querySelector('.course-text').innerHTML = `<strong>${courseCode}</strong>: ${updatedCourse.courseName}`;
-        // Add any other UI updates here as necessary
+        courseElement.querySelector(".course-text").innerHTML = `<strong>${courseCode}</strong>: ${updatedCourse.courseName}`;
     }
 }
 
@@ -249,35 +231,32 @@ function updateCourseDetails(uniqueSelectId, selectedCourseCode) {
 
             if (isAdmin) {
                 // Set the onclick attribute to call showModal (in edit mode) with the new course code
-                courseNumberCell.setAttribute('onclick', `showModal('${selectedCourseCode}')`);
-                courseNumberCell.classList.add('clickable');
+                courseNumberCell.setAttribute("onclick", `showModal('${selectedCourseCode}')`);
+                courseNumberCell.classList.add("clickable");
             }
         } else {
             console.error(`Course details not found for code: ${selectedCourseCode}`);
-            courseNumberCell.innerText = '';
-            creditHoursCell.innerText = '';
+            courseNumberCell.innerText = "";
+            creditHoursCell.innerText = "";
         }
     } else {
         // Reset if no course is selected
-        courseNumberCell.innerText = '';
-        creditHoursCell.innerText = '';
-        
+        courseNumberCell.innerText = "";
+        creditHoursCell.innerText = "";
+
         // Remove the onclick attribute if no course is selected
-        courseNumberCell.removeAttribute('onclick');
-        courseNumberCell.classList.remove('clickable');
+        courseNumberCell.removeAttribute("onclick");
+        courseNumberCell.classList.remove("clickable");
     }
-
-    // Continue with any additional logic needed...
 }
-
 
 //
 function populateDegreePlansDropdown() {
     const dropdown = document.getElementById("degreePlansDropdown");
-    dropdown.innerHTML = ""; // Clear existing options
+    dropdown.innerHTML = ""; 
 
     if (degreeData && degreeData.degreePlans) {
-        degreeData.degreePlans.forEach(plan => {
+        degreeData.degreePlans.forEach((plan) => {
             const planOption = document.createElement("a");
             planOption.className = "dropdown-item";
             planOption.href = "#";
@@ -288,12 +267,26 @@ function populateDegreePlansDropdown() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    loadAcademicMapData();
-    populateDegreePlansDropdown(); // Add this line
-});
 
 
+function deleteCourseFromPlan(courseCode, planName) {
+    let plan = degreeData.degreePlans.find((plan) => plan.name === planName);
+    if (plan) {
+        plan.academicMap.forEach((year) => {
+            year.semesters.forEach((semester) => {
+                semester.courses = semester.courses.filter((course) => course !== courseCode);
+            });
+        });
+
+        // Update local storage
+        localStorage.setItem("courseData", JSON.stringify(degreeData));
+
+        // Re-render the table
+        showPlan(planName);
+    } else {
+        console.error("Degree plan not found");
+    }
+}
 
 
 </script>
