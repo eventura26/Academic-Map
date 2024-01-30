@@ -45,6 +45,11 @@ function getCourseDetails(courseCode) {
 // renders table for degree plan
 function showPlan(planName) {
     // store plan name in local storage
+
+    if(isAdmin){
+    document.getElementById("courseList").style.display = "none";
+    }
+    
     localStorage.setItem("currentDegreePlan", planName);
     let planDetails = document.getElementById("planDetails");
     // iterates thru degreedata to find item that matches the planName
@@ -129,9 +134,9 @@ function showPlan(planName) {
             // Semester 1 Add Course Dropdown
             let semester1DropdownID = `addCourseYear${year.year}Semester1`;
             planDetailsHTML += `
-        <td colspan="3">
+        <td style="text-align: center;" colspan="3">
             <select id="${semester1DropdownID}">
-                <option value="">Add a Course</option>`;
+                <option value="">Select a Course</option>`;
             Object.keys(degreeData.allCourses).forEach((courseCode) => {
                 if (!coursesInPlan.has(courseCode)) {
                     // Exclude courses already in the plan
@@ -140,15 +145,15 @@ function showPlan(planName) {
             });
             planDetailsHTML += `
             </select>
-            <button onclick="addCourseToPlan(document.getElementById('${semester1DropdownID}').value, ${year.year}, 1)">Add to Semester 1</button>
+            <button type="button" class="btn btn-success btn-sm" onclick="addCourseToPlan(document.getElementById('${semester1DropdownID}').value, ${year.year}, 1)">Add to Semester 1</button>
         </td>`;
 
             // Semester 2 Add Course Dropdown
             let semester2DropdownID = `addCourseYear${year.year}Semester2`;
             planDetailsHTML += `
-        <td colspan="3">
+        <td style="text-align: center;" colspan="3">
             <select id="${semester2DropdownID}">
-                <option value="">Add a Course</option>`;
+                <option value="">Select a Course</option>`;
             Object.keys(degreeData.allCourses).forEach((courseCode) => {
                 if (!coursesInPlan.has(courseCode)) {
                     planDetailsHTML += `<option value="${courseCode}">${courseCode}</option>`;
@@ -156,7 +161,7 @@ function showPlan(planName) {
             });
             planDetailsHTML += `
             </select>
-            <button onclick="addCourseToPlan(document.getElementById('${semester2DropdownID}').value, ${year.year}, 2)">Add to Semester 2</button>
+            <button type="button" class="btn btn-success btn-sm" onclick="addCourseToPlan(document.getElementById('${semester2DropdownID}').value, ${year.year}, 2)">Add to Semester 2</button>
         </td>`;
 
             planDetailsHTML += "</tr>";
@@ -218,7 +223,9 @@ function generateCourseCell(course, uniqueSelectId) {
         if (isAdmin) {
             return `
                 <td colspan="1" class="clickable" onclick="showModal('${course}')">${course}</td>
-                <td colspan="1"><button onclick="removeCourseFromPlan('${course}')">Remove Course</button>${courseDetails.courseName}</td>
+                <td colspan="1">
+                <img src="/rubbish-bin.svg" alt="trash icon" style="width:24px; cursor:pointer;" onclick="removeCourseFromPlan('${course}')">
+               ${courseDetails.courseName}</td>
                 <td colspan="1">${courseDetails.creditHours}</td>
                 `;
         }
@@ -270,7 +277,7 @@ function updateCourseDetails(uniqueSelectId, selectedCourseCode) {
     storeCellValue(selectElement);
 }
 
-function showModal(courseCode, year, semester) {
+function showModal(courseCode) {
     const courseDetails = getCourseDetails(courseCode);
     if (!courseDetails) {
         console.error(`Course details not found for code: ${courseCode}`);
@@ -282,7 +289,6 @@ function showModal(courseCode, year, semester) {
     modalContent.innerHTML = "";
 
     if (isAdmin) {
-        // Admin page: show form for editing
         modalContent.innerHTML = `
                 <form id="editCourseForm" class='edit-form'>
                     <h3>Edit Course</h3>
@@ -302,7 +308,7 @@ function showModal(courseCode, year, semester) {
                 </form>
             `;
     } else {
-        // Student view: show course details
+
         modalContent.innerHTML = `
                 <h3>${courseCode} - ${courseDetails.courseName}</h3>
                 <p>Credit Hours: ${courseDetails.creditHours}</p>
@@ -336,34 +342,27 @@ function addCourseToPlan(courseCode, year, semesterNumber) {
         alert("Selected year not found in the degree plan.");
         return;
     }
-
     let selectedSemester = selectedYear.semesters[semesterNumber - 1];
-
     if (selectedSemester.courses.length >= 5) {
         alert("Cannot add more than 5 courses to a semester.");
         return;
     }
-
     // Check if the course is already in the semester
     if (selectedSemester.courses.includes(courseCode)) {
         alert("This course is already in the semester.");
         return;
     }
-
     // Add the course to the semester
     selectedSemester.courses.push(courseCode);
-
-    // Update localStorage
     localStorage.setItem("courseData", JSON.stringify(degreeData));
-
-    // Refresh the display of the degree plan
     showPlan(currentDegreePlan);
 }
 
 function removeCourseFromPlan(courseCode) {
     const currentDegreePlan = localStorage.getItem("currentDegreePlan");
     let selectedPlan = degreeData.degreePlans.find((plan) => plan.name === currentDegreePlan);
-
+    const isConfirmed = confirm(`Are you sure you want to delete course ${courseCode} from ${currentDegreePlan} degree plan?`);
+    
     if (!selectedPlan) {
         alert("Degree plan not found.");
         return;
@@ -373,23 +372,17 @@ function removeCourseFromPlan(courseCode) {
     for (const year of selectedPlan.academicMap) {
         for (const semester of year.semesters) {
             const courseIndex = semester.courses.indexOf(courseCode);
+            if(isConfirmed){
             if (courseIndex !== -1) {
                 // Remove the course from the semester
                 semester.courses.splice(courseIndex, 1);
-
-                // Update localStorage
                 localStorage.setItem("courseData", JSON.stringify(degreeData));
-
-                // Refresh the display of the degree plan
-                showPlan(currentDegreePlan);
-
-                // Close the modal
                 closeModal();
-
-                return; // Exit the function after removing the course
+                showPlan(currentDegreePlan);
+           
+                return;
             }
-        }
+        }}
     }
 
-    alert("Course not found in the degree plan.");
 }

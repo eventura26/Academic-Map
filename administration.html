@@ -13,7 +13,7 @@
         <style>
             .container {
                 text-align: center;
-                margin-top: 24px;
+                margin: 24px;
             }
             .control-btns {
                 margin-top: 20px;
@@ -29,20 +29,27 @@
             .course-item {
                 margin: 14px;
                 justify-content: flex-start;
-                flex-basis: calc(33% - 28px); /* For 3 columns, adjust for margins */
+                flex-basis: calc(33% - 28px); 
                 box-sizing: border-box;
                 display: flex;
                 justify-content: center;
-                align-items: center; /* Optional, for vertical alignment */
-                flex-direction: column; /* Optional, for vertical stacking */
+                align-items: center; 
+                flex-direction: column; 
                 display: flex;
-    justify-content: flex-start;
-    align-items: center; /* Optional, for vertical alignment */
-            }
+                justify-content: flex-start;
+                align-items: center; 
+                 }
 
             .course-text{
                 text-align: center;
                 margin:0 auto;
+            }
+
+            .all-course-list{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                text-align:center
             }
 
             .course-selection:hover {
@@ -53,7 +60,6 @@
     <body>
         <div class="container">
             <h2>Admin Portal</h2>
-
             <div class="control-btns">
                 <button type="button" class="btn btn-info" onclick="toggleCourseList()">View All Courses</button>
 
@@ -63,11 +69,11 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="degreePlansDropdown">
                     <!-- Degree plans will be dynamically inserted here -->
                 </div>
-
-                <button type="button" class="btn btn-success">+ Add a Course</button>
+                <button type="button" class="btn btn-success">+ Add Degree Plan</button>
+                <button type="button" class="btn btn-success" onclick="openAddCourseModal()">+ Add a Course</button>
                 <button type="button" class="btn btn-secondary" onclick="window.open('/academicmap.html', '_blank')">Student View</button>
             </div>
-
+        </div>
             <div id="courseList" class="course-list-container">
                 <!-- <h2 style="text-align: center;">Course List</h2> -->
             </div>
@@ -79,15 +85,60 @@
             <div id="planDetails">
                 <!-- plan details will dynamically be displayed here -->
             </div>
-        </div>
+
+            <!-- Add Course Modal -->
+            <div id="addCourseModal" class="modal" style="display: none;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add Course</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="closeAddCourseModal()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="addCourseForm">
+                                <!-- Form fields for adding a new course -->
+                                <div class="form-group">
+                                    <label for="courseCode">Course Code</label>
+                                    <input type="text" class="form-control" id="courseCode" name="courseCode" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="courseName">Course Name</label>
+                                    <input type="text" class="form-control" id="courseName" name="courseName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="creditHours">Credit Hours</label>
+                                    <input type="number" class="form-control" id="creditHours" name="creditHours" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddCourseModal()">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="addCourse()">Add Course</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
     </body>
 </html>
 
 
     <script>
+
+        
 document.addEventListener("DOMContentLoaded", function () {
     // set admin flag
     isAdmin = true;
+
+    // Initialize degreeData or retrieve it from local storage
+    // let degreeData = JSON.parse(localStorage.getItem("courseData")) || {};
 
     fetch("courses.json")
         .then((response) => response.json())
@@ -118,13 +169,11 @@ function renderCourses(allCourses) {
         </div>
         `;
 
-        // Event listener for the delete icon
         courseElement.querySelector("img").addEventListener("click", (event) => {
             event.stopPropagation();
             deleteCourse(courseCode, courseElement);
         });
 
-        // Event listener for the text part
         courseElement.querySelector(".course-text").addEventListener("click", () => {
             showModal(courseCode, course);
         });
@@ -267,8 +316,6 @@ function populateDegreePlansDropdown() {
     }
 }
 
-
-
 function deleteCourseFromPlan(courseCode, planName) {
     let plan = degreeData.degreePlans.find((plan) => plan.name === planName);
     if (plan) {
@@ -280,14 +327,69 @@ function deleteCourseFromPlan(courseCode, planName) {
 
         // Update local storage
         localStorage.setItem("courseData", JSON.stringify(degreeData));
-
-        // Re-render the table
         showPlan(planName);
     } else {
         console.error("Degree plan not found");
     }
 }
 
+
+// add course to allCourses in json/localstorage  
+function addCourse() {
+    // Get form input values
+    const courseCode = document.getElementById("courseCode").value.toUpperCase();
+    const courseName = document.getElementById("courseName").value;
+    const creditHours = parseInt(document.getElementById("creditHours").value);
+    const description = document.getElementById("description").value;
+
+    // Validation checks
+    if (!courseCode || !courseName || !description || isNaN(creditHours) || creditHours < 0) {
+        alert("Please provide valid values. Course code and name are required, and credit hours should be a non-negative number.");
+        return;
+    }
+
+    // Check if the course code already exists
+    if (degreeData.allCourses && degreeData.allCourses[courseCode]) {
+        alert(`Course code "${courseCode}" already exists. Please choose a different course code.`);
+        return;
+    }
+
+    // Create a new course object with the input values
+    const newCourse = {
+        courseCode: courseCode, 
+        courseName: courseName,
+        creditHours: creditHours,
+        Description: description,
+    };
+
+    // Add the new course to the 'allCourses' data structure
+    if (!degreeData.allCourses) {
+        degreeData.allCourses = {};
+    }
+
+    degreeData.allCourses[courseCode] = newCourse;
+
+    localStorage.setItem("courseData", JSON.stringify(degreeData));
+    closeAddCourseModal();
+
+    // Display a confirmation message
+    const confirmationMessage = `Course "${courseCode}" added successfully.`;
+    alert(confirmationMessage);
+
+    console.log("Added Course Details:");
+    console.log("Course Code: ", courseCode);
+    console.log("Course Name: ", courseName);
+    console.log("Credit Hours: ", creditHours);
+    console.log("Description: ", description);
+}
+
+function openAddCourseModal() {
+    document.getElementById("addCourseModal").style.display = "block";
+}
+
+function closeAddCourseModal() {
+    document.getElementById("addCourseModal").style.display = "none";
+}
 
 </script>
 
